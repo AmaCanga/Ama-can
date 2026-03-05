@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harled Essentials &mdash; Amarildo Canga</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0d0d0d; --white: #ffffff; --off-white: #f5f4f1;
+    --gray-100: #f0efe9; --gray-200: #e2e1da; --gray-400: #a0a09a;
+    --gray-600: #6b6b65; --gray-800: #2c2c28; --accent: #c8f135;
+    --red: #e5321b; --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --radius: 12px; --radius-sm: 8px; --radius-pill: 100px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--off-white); color: var(--black); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+  /* NAV */
+  .main-nav { position: sticky; top: 0; z-index: 100; background: rgba(245,244,241,0.95); border-bottom: 1px solid var(--gray-200); padding: 0 40px; height: 60px; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(12px); }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--black); }
+  .nav-avatar { width: 34px; height: 34px; background: var(--black); border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px; color: var(--white); flex-shrink: 0; }
+  .nav-name { font-weight: 700; font-size: 14px; line-height: 1.2; }
+  .nav-title { font-size: 12px; color: var(--gray-600); }
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray-600); font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--black); }
+  .btn-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--black); color: var(--white); padding: 9px 18px; border-radius: var(--radius-pill); font-size: 13.5px; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.15s; border: none; cursor: pointer; font-family: var(--font); }
+  .btn-pill:hover { background: var(--gray-800); transform: translateY(-1px); }
+  .btn-pill.outline { background: transparent; color: var(--black); border: 1.5px solid var(--gray-200); }
+  .btn-pill.outline:hover { border-color: var(--black); background: transparent; }
+  .nav-cta { /* hidden on mobile via media query */ }
+
+  /* BURGER */
+  .burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; background: none; border: none; padding: 4px; flex-shrink: 0; }
+  .burger span { display: block; height: 2px; background: var(--black); border-radius: 2px; transition: all 0.3s ease; transform-origin: center; }
+  .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE MENU */
+  .menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; }
+  .menu-overlay.open { display: block; }
+  .mobile-menu { position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100vh; background: var(--black); z-index: 201; display: flex; flex-direction: column; padding: 24px; gap: 4px; transition: right 0.3s ease; overflow-y: auto; }
+  .mobile-menu.open { right: 0; }
+  .mobile-menu-close { align-self: flex-end; background: none; border: none; color: var(--white); font-size: 22px; cursor: pointer; padding: 4px 8px; margin-bottom: 16px; }
+  .mobile-menu a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 16px; font-weight: 400; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; }
+  .mobile-menu a:hover, .mobile-menu a.active { color: var(--white); }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-cta { margin-top: 20px; background: var(--accent) !important; color: var(--black) !important; border-radius: var(--radius-pill); padding: 12px 20px !important; text-align: center; font-weight: 600 !important; border-bottom: none !important; }
+
+
+  /* Mobile work submenu */
+  .mobile-work-group { display: flex; flex-direction: column; }
+  .mobile-work-parent { font-size: 16px; font-weight: 600; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); text-decoration: none; display: block; }
+  .mobile-submenu { display: flex; flex-direction: column; padding-left: 16px; border-left: 2px solid var(--accent); margin: 6px 0 10px; gap: 2px; }
+  .mobile-submenu a { font-size: 13px; color: rgba(255,255,255,0.5); padding: 5px 0; text-decoration: none; border-bottom: none !important; }
+  .mobile-submenu a:hover { color: var(--white); }
+
+  /* CASE SWITCHER TAB BAR */
+  .case-switcher { background: var(--black); padding: 0 40px; display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; position: sticky; top: 60px; z-index: 98; }
+  .case-switcher::-webkit-scrollbar { display: none; }
+  .case-tab { display: flex; align-items: center; gap: 10px; padding: 14px 22px; text-decoration: none; color: rgba(255,255,255,0.45); font-size: 13px; font-weight: 400; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; white-space: nowrap; flex-shrink: 0; }
+  .case-tab:hover { color: rgba(255,255,255,0.8); }
+  .case-tab.active { color: var(--white); border-bottom-color: var(--accent); }
+  .case-tab-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: 0.5; flex-shrink: 0; }
+  .case-tab.active .case-tab-dot { background: var(--accent); opacity: 1; }
+
+  /* HERO */
+  .cs-hero { position: relative; height: 420px; overflow: hidden; display: flex; align-items: flex-end; }
+  .cs-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 8s ease; }
+  .cs-hero:hover .cs-hero-bg { transform: scale(1.03); }
+  .cs-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(13,13,13,0.2) 0%, rgba(13,13,13,0.75) 100%); }
+  .cs-hero-content { position: relative; z-index: 2; padding: 0 40px 40px; width: 100%; max-width: 1120px; margin: 0 auto; }
+  .cs-hero-tags { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .chip { font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: var(--radius-pill); letter-spacing: 0.03em; }
+  .chip-dark { background: rgba(0,0,0,0.5); color: var(--white); backdrop-filter: blur(4px); }
+  .chip-accent { background: var(--accent); color: var(--black); }
+  .chip-outline { border: 1px solid rgba(255,255,255,0.35); color: var(--white); }
+  .cs-hero-title { font-size: clamp(30px, 4.5vw, 52px); font-weight: 800; color: var(--white); letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 10px; }
+  .cs-hero-sub { color: rgba(255,255,255,0.72); font-size: 15px; font-weight: 300; max-width: 560px; line-height: 1.6; }
+  .cs-hero-content > * { animation: fadeUp 0.65s ease both; }
+  .cs-hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .cs-hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+  .cs-hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* BODY LAYOUT */
+  .cs-body { max-width: 1120px; margin: 0 auto; padding: 56px 40px 80px; display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: start; }
+  .cs-sidebar { position: sticky; top: 140px; }
+  .sidebar-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+  .sidebar-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 14px; }
+  .meta-row { display: flex; flex-direction: column; gap: 12px; }
+  .meta-item-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); font-weight: 600; margin-bottom: 3px; }
+  .meta-item-value { font-size: 13.5px; font-weight: 500; color: var(--black); }
+  .tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { padding: 4px 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); font-size: 11.5px; color: var(--gray-600); }
+  .impact-metric { display: flex; flex-direction: column; gap: 10px; }
+  .impact-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--gray-100); border-radius: var(--radius-sm); }
+  .impact-icon { width: 28px; height: 28px; background: var(--black); border-radius: 7px; display: grid; place-items: center; flex-shrink: 0; font-size: 13px; color: var(--accent); }
+  .impact-text { font-size: 13px; color: var(--gray-600); line-height: 1.45; }
+  .impact-text strong { display: block; font-size: 14px; color: var(--black); font-weight: 600; margin-bottom: 1px; }
+  .sidebar-cta-stack { display: flex; flex-direction: column; gap: 8px; }
+  .sidebar-cta-stack .btn-pill { justify-content: center; }
+
+  /* MAIN CONTENT */
+  .section-block { margin-bottom: 52px; }
+  .block-label { display: flex; align-items: center; gap: 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gray-400); font-weight: 600; margin-bottom: 14px; }
+  .block-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+  .block-title { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.2; }
+  .block-body { font-size: 15px; color: var(--gray-600); line-height: 1.78; font-weight: 300; }
+  .block-body p + p { margin-top: 14px; }
+  .block-body strong { color: var(--black); font-weight: 500; }
+  .cr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+  .cr-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; }
+  .cr-card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 8px; }
+  .cr-card.challenge { border-left: 3px solid var(--red); }
+  .cr-card.response { border-left: 3px solid var(--accent); }
+  .cr-card.response .cr-card-label { color: #8aaa00; }
+  .cr-card p { font-size: 13.5px; color: var(--gray-600); line-height: 1.6; }
+  .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 20px; position: relative; }
+  .process-steps::before { content: ''; position: absolute; left: 19px; top: 20px; bottom: 20px; width: 1px; background: var(--gray-200); }
+  .process-step { display: flex; gap: 20px; padding: 0 0 28px; position: relative; }
+  .process-step:last-child { padding-bottom: 0; }
+  .step-num { width: 38px; height: 38px; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--black); flex-shrink: 0; z-index: 1; transition: background 0.2s, border-color 0.2s; }
+  .process-step:hover .step-num { background: var(--black); color: var(--white); border-color: var(--black); }
+  .step-content { padding-top: 8px; }
+  .step-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+  .step-desc { font-size: 13.5px; color: var(--gray-600); line-height: 1.6; }
+  .gallery { display: grid; gap: 12px; margin-top: 20px; }
+  .gallery-2 { grid-template-columns: 1fr 1fr; }
+  .gallery-item { border-radius: var(--radius); overflow: hidden; }
+  .gallery-img { width: 100%; display: block; aspect-ratio: 16/9; background-size: cover; background-position: center; background-color: var(--gray-200); }
+  .gallery-caption { font-size: 12px; color: var(--gray-400); margin-top: 7px; font-style: italic; }
+  .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+  .outcome-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; text-align: center; }
+  .outcome-num { font-size: 32px; font-weight: 800; color: var(--black); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+  .outcome-label { font-size: 12.5px; color: var(--gray-600); line-height: 1.4; }
+  .highlight-block { background: var(--black); border-radius: var(--radius); padding: 28px 32px; margin: 28px 0; position: relative; overflow: hidden; }
+  .highlight-block::before { content: '"'; position: absolute; top: -10px; left: 20px; font-size: 120px; color: rgba(255,255,255,0.05); line-height: 1; }
+  .highlight-block p { font-size: 20px; font-weight: 600; color: var(--white); line-height: 1.45; letter-spacing: -0.01em; position: relative; z-index: 1; margin-bottom: 14px; }
+  .highlight-block .accent-line { font-size: 13px; color: var(--accent); font-weight: 500; position: relative; z-index: 1; }
+
+  /* NEXT PROJECTS */
+  .next-section { background: var(--gray-100); border-top: 1px solid var(--gray-200); padding: 64px 40px; }
+  .next-inner { max-width: 1120px; margin: 0 auto; }
+  .next-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 24px; }
+  .next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .next-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--black); transition: transform 0.25s, box-shadow 0.25s; display: block; }
+  .next-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.09); }
+  .next-card-img { height: 130px; position: relative; overflow: hidden; background-size: cover; background-position: center; background-color: var(--gray-200); }
+  .next-card-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.45) 100%); }
+  .next-card-chip { position: absolute; top: 10px; left: 10px; }
+  .next-card-body { padding: 14px 16px 16px; }
+  .next-card-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.01em; }
+  .next-card-sub { font-size: 12px; color: var(--gray-600); line-height: 1.4; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--gray-200); padding: 20px 40px; max-width: 1120px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 13px; color: var(--gray-400); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 13px; color: var(--gray-400); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--black); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .main-nav { padding: 0 20px; }
+    .case-switcher { padding: 0 12px; }
+    .cs-hero { height: 300px; }
+    .cs-hero-content { padding: 0 20px 28px; }
+    .cs-body { grid-template-columns: 1fr; padding: 36px 20px 60px; gap: 36px; }
+    .cs-sidebar { position: static; }
+    .cr-grid { grid-template-columns: 1fr; }
+    .gallery-2 { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .next-grid { grid-template-columns: 1fr 1fr; }
+    .next-section { padding: 48px 20px; }
+    footer { padding: 20px; flex-direction: column; gap: 12px; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none !important; }
+    .burger { display: flex !important; }
+  }
+  @media (max-width: 480px) {
+    .cs-hero { height: 260px; }
+    .cs-hero-content { padding: 0 16px 24px; }
+    .cs-hero-title { font-size: 24px; }
+    .cs-hero-sub { font-size: 13px; }
+    .cs-body { padding: 28px 16px 60px; }
+    .case-switcher { padding: 0 4px; }
+    .case-tab { padding: 12px 12px; font-size: 11px; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .next-grid { grid-template-columns: 1fr; }
+    .sidebar-card { padding: 16px; }
+    .cr-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">&#x2715;</button>
+  <a href="/">Home</a>
+  <div class="mobile-work-group">
+    <a href="/work" class="mobile-work-parent">Work</a>
+    <div class="mobile-submenu">
+      <a href="/harled">Harled Essentials</a>
+      <a href="/omnisolar">Omnisolar</a>
+      <a href="/searchlight">Searchlight</a>
+      <a href="/zipstrip">ZIP Strip</a>
+      <a href="/coffee">200&#xB0; Coffee</a>
+      <a href="/wanderlust">Wanderlust</a>
+    </div>
+  </div>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/cv">CV</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact" class="mobile-cta">Let&#x2019;s talk</a>
+</div>
+<nav class="main-nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-avatar">AC</div>
+    <div><div class="nav-name">Amarildo Canga</div><div class="nav-title">Design Lead &middot; Brand &amp; Product</div></div>
+  </a>
+    <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work">Work</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/cv">CV</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="btn-pill nav-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Let's talk </a>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="case-switcher">
+  <a href="/harled" class="case-tab active"><span class="case-tab-dot"></span>Harled Essentials</a>
+  <a href="/omnisolar" class="case-tab"><span class="case-tab-dot"></span>Omnisolar</a>
+  <a href="/searchlight" class="case-tab"><span class="case-tab-dot"></span>Searchlight</a>
+  <a href="/zipstrip" class="case-tab"><span class="case-tab-dot"></span>ZIP Strip</a>
+  <a href="/coffee" class="case-tab"><span class="case-tab-dot"></span>200° Coffee</a>
+  <a href="/wanderlust" class="case-tab"><span class="case-tab-dot"></span>Wanderlust</a>
+</div>
+<div class="cs-hero">
+  <div class="cs-hero-bg" style="background-image:url('https://res.cloudinary.com/dylkbwins/image/upload/v1772619366/Harled_Essentials_hero.jpg');"></div>
+  <div class="cs-hero-overlay"></div>
+  <div class="cs-hero-content">
+    <div class="cs-hero-tags">
+      <span class="chip chip-outline">Catalogue Design</span>
+      <span class="chip chip-outline">Product Photography</span>
+      <span class="chip chip-outline">Brand Direction</span>
+      <span class="chip chip-outline">B2B Trade</span>
+    </div>
+    <h1 class="cs-hero-title">Harled Essentials<br>&mdash; Catalogue Vol.1 &amp; 2</h1>
+    <p class="cs-hero-sub">Building a complete trade catalogue &mdash; photography, structure, copy, and lifestyle visuals &mdash; for a brand that started with nothing but a name.</p>
+  </div>
+</div>
+
+<div class="cs-body">
+  <main class="cs-main">
+
+    <div class="section-block reveal">
+      <div class="block-label">Overview</div>
+      <h2 class="block-title">Taking a brand from nothing to a full product catalogue &mdash; from scratch</h2>
+      <div class="block-body">
+        <p>When I came on board at Express Electrical as Design Lead, Harled Essentials had a brand name and a stack of technical data sheets &mdash; and that was it. No catalogue, no product photography, no design direction. The data was scattered and inconsistent. There was no imagery for roughly 90% of the products.</p>
+        <p>The range itself was substantial: twelve product categories across 75 pages covering fire-rated downlights, the Lightguard GU10 housing, IP65 bulkheads, battens, LED panels, UFO high bays, a full LED COB strip system (ZIP Strip), six emergency lighting families, a track system, the Castillo DALI-2 suspended linear range, site lighting, the Triton-B solar floodlight, and the Venus Pro solar street light series under the Omnisolar sub-brand. Every category needed structure, photography, and copy built from the ground up.</p>
+        <p>My scope covered everything: auditing and structuring the product range, photographing every SKU, designing the system, writing the catalogue, and producing the lifestyle visuals that made it feel like a credible trade brand.</p>
+      </div>
+    </div>
+
+    <div class="section-block reveal">
+      <div class="block-label">Challenge vs. Response</div>
+      <div class="cr-grid">
+        <div class="cr-card challenge"><div class="cr-card-label">Challenge</div><p>No product photography existed for the vast majority of SKUs &mdash; and no budget or setup for a professional shoot.</p></div>
+        <div class="cr-card response"><div class="cr-card-label">Response</div><p>Convinced stakeholders to invest in a white box studio setup. Shot every product myself &mdash; COB strip reels, downlights, drivers, profiles, accessories &mdash; then handled all retouching to achieve a clean, consistent professional finish.</p></div>
+        <div class="cr-card challenge"><div class="cr-card-label">Challenge</div><p>The data was inconsistent and unstructured &mdash; no logical product hierarchy, inconsistent naming, missing specs across dozens of SKUs.</p></div>
+        <div class="cr-card response"><div class="cr-card-label">Response</div><p>Built the catalogue architecture from zero &mdash; defining sections, naming conventions, product page templates, and spec table formats that worked across the full range.</p></div>
+        <div class="cr-card challenge"><div class="cr-card-label">Challenge</div><p>Products needed lifestyle shots showing them installed &mdash; kitchens, retail spaces, architectural coves &mdash; but a production shoot was out of scope and budget.</p></div>
+        <div class="cr-card response"><div class="cr-card-label">Response</div><p>Used AI image generation to create contextual lifestyle visuals &mdash; COB strip in kitchen cabinetry, downlights in offices, track systems in retail &mdash; giving the catalogue the depth it needed without any shoot cost.</p></div>
+        
+        
+      </div>
+    </div>
+
+    <div class="highlight-block reveal">
+      <p>They had a brand name, a stack of data sheets, and products without photos. My job was to turn that into a catalogue that made contractors trust the brand enough to buy from it.</p>
+      <span class="accent-line">&mdash; Harled Essentials, 2025&ndash;26</span>
+    </div>
+
+    <div class="section-block reveal">
+      <div class="block-label">Process</div>
+      <h2 class="block-title">How it came together</h2>
+      <div class="process-steps">
+        <div class="process-step"><div class="step-num">01</div><div class="step-content"><div class="step-title">Data audit + catalogue architecture</div><div class="step-desc">Went through all available spec sheets across the full range. Stripped out the noise, standardised naming, and built a logical section structure before any design started.</div></div></div>
+        <div class="process-step"><div class="step-num">02</div><div class="step-content"><div class="step-title">White box photography</div><div class="step-desc">Proposed and set up an in-house white box studio. Shot every product &mdash; from 5m COB strip reels and IP67 drivers to downlight bezels, track heads, and accessories &mdash; then handled all retouching, cutouts, and consistency grading to produce print-ready and e-commerce assets.</div></div></div>
+        <div class="process-step"><div class="step-num">03</div><div class="step-content"><div class="step-title">AI lifestyle visuals</div><div class="step-desc">Used AI image generation to produce lifestyle shots showing products in context &mdash; COB strip in kitchen joinery, downlights in residential and commercial spaces, track lighting in hospitality settings, solar street lights in urban environments.</div></div></div>
+        <div class="process-step"><div class="step-num">04</div><div class="step-content"><div class="step-title">Catalogue design + layout</div><div class="step-desc">Designed and built both catalogue volumes &mdash; defining the grid, typography, colour system, and product page templates. The LED COB strip section alone required a dedicated sub-system: kit tables, driver picker guides, 50m reel pages, and a bespoke service spread.</div></div></div>
+        <div class="process-step"><div class="step-num">05</div><div class="step-content"><div class="step-title">Stakeholder sign-off + rollout</div><div class="step-desc">Worked iteratively with stakeholders through reviews and refinements across both volumes. The finished catalogues gave the brand a credibility it hadn&rsquo;t had before &mdash; and opened the door to a new phase of investment in the business.</div></div></div>
+      </div>
+    </div>
+
+    <div class="section-block reveal">
+      <div class="block-label">Visuals</div>
+      <h2 class="block-title">Design outputs</h2>
+      <div class="gallery gallery-2">
+        <div class="gallery-item"><div class="gallery-img" style="background-image:url('https://res.cloudinary.com/dylkbwins/image/upload/v1772619341/Harled_V1.jpg');"></div></div>
+        <div class="gallery-item"><div class="gallery-img" style="background-image:url('https://res.cloudinary.com/dylkbwins/image/upload/v1772619342/Harled_box.jpg');"></div></div>
+      </div>
+      <div class="gallery" style="margin-top:12px;">
+        <div class="gallery-item"><div class="gallery-img" style="aspect-ratio:21/9;background-image:url('https://res.cloudinary.com/dylkbwins/image/upload/v1772619356/Harled.jpg');"></div></div>
+      </div>
+      <p class="gallery-caption">Catalogue Vol.1 &amp; 2 spreads, white box product photography, and wide format layout.</p>
+    </div>
+
+    <div class="section-block reveal">
+      <div class="block-label">Outcomes</div>
+      <h2 class="block-title">What it delivered</h2>
+      <div class="outcomes-grid">
+        <div class="outcome-box"><div class="outcome-num">75</div><div class="outcome-label">Pages across two catalogue volumes &mdash; built from nothing to print-ready</div></div>
+        <div class="outcome-box"><div class="outcome-num">&pound;10k</div><div class="outcome-label">Website investment unlocked on the strength of the catalogue alone</div></div>
+        <div class="outcome-box"><div class="outcome-num">0&rarr;1</div><div class="outcome-label">Brand went from no collateral to a fully structured product presence</div></div>
+        <div class="outcome-box"><div class="outcome-num">12</div><div class="outcome-label">Product categories structured, photographed, and designed</div></div>
+      </div>
+      <div class="block-body" style="margin-top:24px;"><p>Stakeholders were happy, and clients began taking the brand more seriously. The most telling result: on the strength of the first catalogue, the business committed to a <strong>&pound;10,000 website build</strong> &mdash; a project I&rsquo;m now managing.</p></div>
+    </div>
+
+  </main>
+  <aside class="cs-sidebar">
+    <div class="sidebar-card reveal">
+      <div class="sidebar-label">Project Details</div>
+      <div class="meta-row">
+        <div class="meta-item"><div class="meta-item-label">Role</div><div class="meta-item-value">Design Lead &mdash; sole designer</div></div>
+        <div class="meta-item"><div class="meta-item-label">Year</div><div class="meta-item-value">2025 &mdash; Ongoing</div></div>
+        <div class="meta-item"><div class="meta-item-label">outputs</div><div class="tag-wrap"><span class="tag">Catalogue Vol.1 &amp; 2</span><span class="tag">Product Photography</span><span class="tag">AI Lifestyle Visuals</span><span class="tag">Copywriting</span><span class="tag">Brand Direction</span><span class="tag">Website PM</span></div></div>
+        <div class="meta-item"><div class="meta-item-label">Industry</div><div class="meta-item-value">Lighting / B2B Trade</div></div>
+      </div>
+    </div>
+    <div class="sidebar-card reveal">
+      <div class="sidebar-label">Key Impact</div>
+      <div class="impact-metric">
+        <div class="impact-row"><div class="impact-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div><div class="impact-text"><strong>Full product photography</strong> &mdash; shot, retouched, and AI-extended in-house</div></div>
+        <div class="impact-row"><div class="impact-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><div class="impact-text"><strong>2 catalogue volumes</strong> built from zero data to print-ready</div></div>
+        <div class="impact-row"><div class="impact-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="14" x2="15" y2="14"/><path d="M8 14V8a4 4 0 018 0"/><path d="M5 19h14"/><path d="M8 14c0 2.5-1 4-3 5"/></svg></div><div class="impact-text"><strong>&pound;10k website investment</strong> unlocked after brand credibility established</div></div>
+      </div>
+    </div>
+    <div class="sidebar-card reveal">
+      <div class="sidebar-cta-stack">
+        <a href="https://harled-vol1-2.netlify.app" target="_blank" class="btn-pill">View catalogue </a>
+        <a href="/contact" class="btn-pill outline">Start a project</a>
+      </div>
+    </div>
+  </aside>
+</div>
+<div class="next-section">
+  <div class="next-inner">
+    <div class="next-label">More case studies</div>
+    <div class="next-grid">
+    <a href="/omnisolar" class="next-card">
+      <div class="next-card-img" style="background-image:url('https://res.cloudinary.com/dylkbwins/image/upload/v1772619374/Omnisolar_card.jpg');">
+        <div class="next-card-overlay"></div>
+        <div class="next-card-chip"><span class="chip chip-dark" style="font-size:10px;">E-commerce</span></div>
+      </div>
+      <div class="next-card-body">
+        <div class="next-card-title">Omnisolar</div>
+        <div class="next-card-sub">DIY.com listings strategy & brand launch</div>
+      </div>
+    </a>
+    <a href="/searchlight" class="next-card">
+      <div class="next-card-img" style="background-image:url('https://res.cloudinary.com/dylkbwins/image/upload/v1772619369/Searchlight_card.jpg');">
+        <div class="next-card-overlay"></div>
+        <div class="next-card-chip"><span class="chip chip-dark" style="font-size:10px;">Catalogue Design</span></div>
+      </div>
+      <div class="next-card-body">
+        <div class="next-card-title">Searchlight</div>
+        <div class="next-card-sub">1,300-SKU decorative lighting catalogue</div>
+      </div>
+    </a>
+    <a href="/zipstrip" class="next-card">
+      <div class="next-card-img" style="background-image:url('https://res.cloudinary.com/dylkbwins/image/upload/v1772619368/ZIP_Strip_card.jpg');">
+        <div class="next-card-overlay"></div>
+        <div class="next-card-chip"><span class="chip chip-dark" style="font-size:10px;">Brand Identity</span></div>
+      </div>
+      <div class="next-card-body">
+        <div class="next-card-title">ZIP Strip</div>
+        <div class="next-card-sub">Logo, guidelines & retail/trade packaging system</div>
+      </div>
+    </a>
+    </div>
+  </div>
+</div>
+<footer>
+  <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+    <span class="footer-copy">&copy; 2026 Amarildo Canga</span>
+    <div class="footer-links">
+      <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/amarildo.design/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  (function() {
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var overlay = document.getElementById('menuOverlay');
+  var closeBtn = document.getElementById('menuClose');
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+})();
+});
+</script>
+</body>
+</html>

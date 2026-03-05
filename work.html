@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Amarildo Canga</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .work-hero { background: var(--black); padding: 64px 40px 56px; }
+  .work-hero-inner { max-width: var(--max-w); margin: 0 auto; }
+  .work-hero h1 { font-size: clamp(36px,5vw,52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: var(--white); margin-bottom: 12px; }
+  .work-hero p { font-size: 15px; color: rgba(255,255,255,0.45); max-width: 500px; line-height: 1.7; }
+
+  .work-grid-section { max-width: var(--max-w); margin: 0 auto; padding: 56px 40px 80px; }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+  /* Bigger cards */
+  .work-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.25s, transform 0.25s; cursor: pointer; }
+  .work-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); transform: translateY(-3px); }
+  .work-card-img { position: relative; height: 320px; overflow: hidden; }
+  .work-card-img-inner { width: 100%; height: 100%; display: block; transition: transform 0.4s ease; background-size: cover; background-position: center; }
+  .work-card:hover .work-card-img-inner { transform: scale(1.03); }
+  .work-card-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, rgba(0,0,0,0.65) 100%); }
+  .work-card-img-title { position: absolute; bottom: 42px; left: 24px; right: 24px; color: var(--white); font-size: 20px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+  .work-card-img-sub { position: absolute; bottom: 0; left: 24px; right: 24px; color: rgba(255,255,255,0.75); font-size: 13px; line-height: 1.4; padding-bottom: 18px; max-height: 36px; overflow: hidden; }
+  .work-card-tag-row { position: absolute; top: 16px; left: 16px; display: flex; gap: 6px; z-index: 2; }
+  .work-card-body { padding: 22px 24px 24px; }
+  .work-card-role-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 14px; }
+  .work-card-role { font-size: 12px; color: var(--gray-400); }
+  .work-card-role strong { color: var(--gray-600); }
+  .work-role-tag { font-size: 11px; padding: 3px 9px; border: 1px solid var(--gray-200); border-radius: var(--radius-pill); color: var(--gray-400); }
+  .work-impact-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); font-weight: 600; margin-bottom: 8px; }
+  .work-impact-list { list-style: none; margin-bottom: 18px; }
+  .work-impact-list li { font-size: 13.5px; color: var(--gray-600); padding: 3px 0 3px 14px; position: relative; line-height: 1.55; }
+  .work-impact-list li::before { content: '·'; position: absolute; left: 0; color: var(--gray-400); font-size: 16px; line-height: 1.3; }
+  .work-card-actions { display: flex; gap: 10px; }
+
+  @media (max-width: 860px) {
+    .work-hero { padding: 40px 20px; }
+    .work-grid-section { padding: 36px 20px 60px; }
+    .work-grid { grid-template-columns: 1fr; gap: 20px; }
+    .work-card-img { height: 240px; }
+    .work-card-img-title { font-size: 17px; bottom: 38px; left: 18px; right: 18px; }
+    .work-card-img-sub { font-size: 12px; left: 18px; right: 18px; }
+    .work-card-body { padding: 18px 18px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">&#x2715;</button>
+  <a href="/">Home</a>
+  <div class="mobile-work-group">
+    <a href="/work" class="mobile-work-parent">Work</a>
+    <div class="mobile-submenu">
+      <a href="/harled">Harled Essentials</a>
+      <a href="/omnisolar">Omnisolar</a>
+      <a href="/searchlight">Searchlight</a>
+      <a href="/zipstrip">ZIP Strip</a>
+      <a href="/coffee">200&#xB0; Coffee</a>
+      <a href="/wanderlust">Wanderlust</a>
+    </div>
+  </div>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/cv">CV</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact" class="mobile-cta">Let&#x2019;s talk</a>
+</div>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-avatar">AC</div>
+    <div><div class="nav-name">Amarildo Canga</div><div class="nav-title">Design Lead · Brand & Product</div></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work" class="active">Work</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/cv">CV</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="btn-pill nav-cta">Let's talk</a>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="work-hero">
+  <div class="work-hero-inner fade-up">
+    <div class="section-label" style="color:rgba(255,255,255,0.35)">Selected work</div>
+    <h1>Projects</h1>
+    <p>Six projects across brand, packaging, catalogues, and e-commerce. Each one started with a problem.</p>
+  </div>
+</div>
+
+<div class="work-grid-section">
+  <div class="work-grid">
+
+    <!-- HARLED -->
+    <div class="work-card reveal">
+      <div class="work-card-img">
+        <div class="work-card-tag-row"><span class="chip chip-dark">Brand + Catalogue</span><span class="chip chip-light">2025–26</span></div>
+        <div class="ph-led work-card-img-inner"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-img-title">Harled Essentials - Catalogue Vol.1 &amp; 2</div>
+        <div class="work-card-img-sub">No brief, no assets, no photos. Built from scratch.</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-role-row"><span class="work-card-role"><strong>Role:</strong> Sole Designer</span><span class="work-role-tag">Catalogue</span><span class="work-role-tag">Photography</span><span class="work-role-tag">B2B</span></div>
+        <div class="work-impact-label">Impact</div>
+        <ul class="work-impact-list">
+          <li>2 volumes, 12 product categories - all photography and copy included</li>
+          <li>Client used it to justify a £10k website investment</li>
+        </ul>
+        <div class="work-card-actions"><a href="/harled" class="btn-pill">View case study</a></div>
+      </div>
+    </div>
+
+    <!-- OMNISOLAR -->
+    <div class="work-card reveal">
+      <div class="work-card-img">
+        <div class="work-card-tag-row"><span class="chip chip-dark">Brand + E-commerce</span><span class="chip chip-light">2025–26</span></div>
+        <div class="ph-solar work-card-img-inner"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-img-title">Omnisolar - Listings &amp; Brand Launch</div>
+        <div class="work-card-img-sub">Zero presence on DIY.com. Built the full listing suite.</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-role-row"><span class="work-card-role"><strong>Role:</strong> Sole Designer</span><span class="work-role-tag">E-commerce</span><span class="work-role-tag">Brand</span><span class="work-role-tag">Retail</span></div>
+        <div class="work-impact-label">Impact</div>
+        <ul class="work-impact-list">
+          <li>Full DIY.com presence built from nothing</li>
+          <li>Premium pricing made possible by getting the brand right first</li>
+        </ul>
+        <div class="work-card-actions"><a href="/omnisolar" class="btn-pill">View case study</a></div>
+      </div>
+    </div>
+
+    <!-- SEARCHLIGHT -->
+    <div class="work-card reveal">
+      <div class="work-card-img">
+        <div class="work-card-tag-row"><span class="chip chip-dark">Catalogues + Direction</span><span class="chip chip-light">2021–25</span></div>
+        <div class="ph-social work-card-img-inner"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-img-title">Searchlight - Trade Catalogue</div>
+        <div class="work-card-img-sub">1,300 products. One catalogue. One visual direction.</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-role-row"><span class="work-card-role"><strong>Role:</strong> Lead Designer</span><span class="work-role-tag">Catalogue</span><span class="work-role-tag">B2B</span><span class="work-role-tag">Photography</span></div>
+        <div class="work-impact-label">Impact</div>
+        <ul class="work-impact-list">
+          <li>1,300 SKUs - structured, shot, and laid out</li>
+          <li>Shifted the visual direction from product-on-white to lifestyle</li>
+        </ul>
+        <div class="work-card-actions"><a href="/searchlight" class="btn-pill">View case study</a></div>
+      </div>
+    </div>
+
+    <!-- ZIP STRIP -->
+    <div class="work-card reveal">
+      <div class="work-card-img">
+        <div class="work-card-tag-row"><span class="chip chip-dark">Brand + Packaging</span><span class="chip chip-light">2025–26</span></div>
+        <div class="ph-halo work-card-img-inner"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-img-title">ZIP Strip - Brand &amp; Packaging</div>
+        <div class="work-card-img-sub">A product name and nothing else. Built from there.</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-role-row"><span class="work-card-role"><strong>Role:</strong> Sole Designer</span><span class="work-role-tag">Brand</span><span class="work-role-tag">Packaging</span><span class="work-role-tag">Retail</span></div>
+        <div class="work-impact-label">Impact</div>
+        <ul class="work-impact-list">
+          <li>Logo, guidelines, voice - everything from zero</li>
+          <li>20+ SKU variants across retail and trade, plus insert system</li>
+        </ul>
+        <div class="work-card-actions"><a href="/zipstrip" class="btn-pill">View case study</a></div>
+      </div>
+    </div>
+
+    <!-- 200 COFFEE -->
+    <div class="work-card reveal">
+      <div class="work-card-img">
+        <div class="work-card-tag-row"><span class="chip chip-dark">Digital Design</span><span class="chip chip-light">2025</span></div>
+        <div class="ph-200 work-card-img-inner"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-img-title">200&deg; Coffee - Digital Design Suite</div>
+        <div class="work-card-img-sub">Five formats. One brief. One design system.</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-role-row"><span class="work-card-role"><strong>Role:</strong> Sole Designer</span><span class="work-role-tag">Interactive</span><span class="work-role-tag">Digital</span><span class="work-role-tag">Publishing</span></div>
+        <div class="work-impact-label">Impact</div>
+        <ul class="work-impact-list">
+          <li>Five outputs - PDF, EPUB, carousel, poster, data vis</li>
+          <li>Same design system running through all of them</li>
+        </ul>
+        <div class="work-card-actions"><a href="/coffee" class="btn-pill">View case study</a></div>
+      </div>
+    </div>
+
+    <!-- WANDERLUST -->
+    <div class="work-card reveal">
+      <div class="work-card-img">
+        <div class="work-card-tag-row"><span class="chip chip-dark">Brand + UI</span><span class="chip chip-light">2025–26</span></div>
+        <div class="ph-wander work-card-img-inner"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-img-title">Wanderlust - Brand &amp; App UI</div>
+        <div class="work-card-img-sub">Real client. Brand identity and 20+ app screens end to end.</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-role-row"><span class="work-card-role"><strong>Role:</strong> Sole Designer</span><span class="work-role-tag">Brand</span><span class="work-role-tag">UI Design</span><span class="work-role-tag">Travel</span></div>
+        <div class="work-impact-label">Impact</div>
+        <ul class="work-impact-list">
+          <li>Brand identity plus 20+ app screens - onboarding through to payment</li>
+          <li>First travel and app project - proved the approach works beyond lighting</li>
+        </ul>
+        <div class="work-card-actions"><a href="/wanderlust" class="btn-pill">View case study</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 Amarildo Canga</span>
+    <div class="footer-links">
+      <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/amarildo.design/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+});
+(function() {
+  (function() {
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var overlay = document.getElementById('menuOverlay');
+  var closeBtn = document.getElementById('menuClose');
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+})();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amarildo Canga - Design Lead · Brand & Product</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .hero {
+    max-width: var(--max-w); margin: 0 auto;
+    padding: 64px 40px 48px;
+    display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start;
+  }
+  .hero-headline { font-size: clamp(36px,5.5vw,58px); font-weight: 800; line-height: 1.07; letter-spacing: -0.03em; margin-bottom: 20px; }
+  .hero-headline .muted { color: var(--gray-400); }
+  .hero-sub { color: var(--gray-600); font-size: 15px; max-width: 460px; margin-bottom: 24px; line-height: 1.7; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .location { font-size: 13px; color: var(--gray-400); }
+
+  .avail-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 24px; animation: fadeUp 0.6s ease 0.2s both; }
+  .avail-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .avail-header h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .badge-available { background: var(--black); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.08em; }
+  .avail-desc { font-size: 13.5px; color: var(--gray-600); margin-bottom: 18px; line-height: 1.5; }
+  .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 18px; }
+  .stat-box { background: var(--gray-100); border-radius: var(--radius-sm); padding: 10px 12px; }
+  .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); font-weight: 600; margin-bottom: 3px; }
+  .stat-value { font-size: 16px; font-weight: 800; color: var(--black); letter-spacing: -0.02em; }
+  .wib { border-top: 1px solid var(--gray-200); padding-top: 16px; }
+  .wib p { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); font-weight: 600; margin-bottom: 10px; }
+  .wib ul { list-style: none; }
+  .wib li { font-size: 13px; color: var(--gray-600); padding: 3px 0 3px 14px; position: relative; line-height: 1.5; }
+  .wib li::before { content: '·'; position: absolute; left: 0; color: var(--gray-400); font-size: 16px; line-height: 1.3; }
+
+  .work-section { max-width: var(--max-w); margin: 0 auto; padding: 0 40px 80px; }
+  .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+  .filter-search { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); padding: 8px 16px; flex: 1; max-width: 300px; transition: border-color 0.2s; }
+  .filter-search:focus-within { border-color: var(--black); }
+  .filter-search input { border: none; outline: none; background: transparent; font-family: var(--font); font-size: 13.5px; color: var(--black); width: 100%; }
+  .filter-search input::placeholder { color: var(--gray-400); }
+  .filter-btn { padding: 7px 14px; border-radius: var(--radius-pill); border: 1.5px solid var(--gray-200); background: transparent; font-family: var(--font); font-size: 13px; color: var(--gray-600); cursor: pointer; transition: all 0.18s; }
+  .filter-btn:hover { border-color: var(--black); color: var(--black); }
+  .filter-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+  .grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+  .card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+  .card-img-wrap { position: relative; height: 220px; overflow: hidden; }
+  .card-img-inner { width: 100%; height: 100%; display: block; transition: transform 0.4s ease; }
+  .card:hover .card-img-inner { transform: scale(1.03); }
+  .card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55) 100%); }
+  .card-img-title { position: absolute; bottom: 38px; left: 20px; right: 20px; color: var(--white); font-size: 16px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+  .card-img-sub { position: absolute; bottom: 0; left: 20px; right: 20px; color: rgba(255,255,255,0.78); font-size: 12px; line-height: 1.35; padding-bottom: 14px; max-height: 34px; overflow: hidden; }
+  .card-tag-row { position: absolute; top: 14px; left: 14px; display: flex; gap: 6px; }
+  .card-body { padding: 18px 20px 20px; }
+  .card-role-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .card-role { font-size: 13px; color: var(--gray-600); }
+  .role-tag { font-size: 11.5px; padding: 3px 9px; border: 1px solid var(--gray-200); border-radius: var(--radius-pill); color: var(--gray-600); }
+  .impact-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 8px; }
+  .impact-list { list-style: none; margin-bottom: 18px; }
+  .impact-list li { font-size: 13px; color: var(--gray-600); padding: 2.5px 0 2.5px 14px; position: relative; line-height: 1.5; }
+  .impact-list li::before { content: '·'; position: absolute; left: 0; color: var(--gray-400); font-size: 16px; line-height: 1.3; }
+  .card-actions { display: flex; gap: 10px; }
+
+  .services-teaser { background: var(--black); padding: 64px 40px; }
+  .services-teaser-inner { max-width: var(--max-w); margin: 0 auto; }
+  .teaser-heading { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; }
+  .teaser-heading h2 { font-size: 28px; font-weight: 800; color: var(--white); letter-spacing: -0.025em; }
+  .service-tiles { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .service-tile { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 24px; transition: background 0.2s; }
+  .service-tile:hover { background: rgba(255,255,255,0.1); }
+  .service-icon { font-size: 22px; margin-bottom: 12px; }
+  .service-tile h3 { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .service-tile p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 40px 20px 32px; }
+    .grid { grid-template-columns: 1fr; }
+    .work-section { padding: 0 20px 60px; }
+    .services-teaser { padding: 48px 20px; }
+    .service-tiles { grid-template-columns: 1fr 1fr; }
+    .teaser-heading { flex-direction: column; align-items: flex-start; gap: 14px; }
+  }
+  @media (max-width: 580px) {
+    .service-tiles { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .card-img-wrap { height: auto; min-height: 260px; }
+    .card-img-title {
+      position: static;
+      color: var(--black);
+      font-size: 16px;
+      padding: 14px 16px 4px;
+    }
+    .card-img-sub {
+      position: static;
+      color: var(--gray-600);
+      font-size: 12px;
+      padding: 0 16px 14px;
+    }
+    .card-img-overlay { display: none; }
+    .card-img-inner { height: 200px; display: block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">&#x2715;</button>
+  <a href="/">Home</a>
+  <div class="mobile-work-group">
+    <a href="/work" class="mobile-work-parent">Work</a>
+    <div class="mobile-submenu">
+      <a href="/harled">Harled Essentials</a>
+      <a href="/omnisolar">Omnisolar</a>
+      <a href="/searchlight">Searchlight</a>
+      <a href="/zipstrip">ZIP Strip</a>
+      <a href="/coffee">200&#xB0; Coffee</a>
+      <a href="/wanderlust">Wanderlust</a>
+    </div>
+  </div>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/cv">CV</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact" class="mobile-cta">Let&#x2019;s talk</a>
+</div>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-avatar">AC</div>
+    <div><div class="nav-name">Amarildo Canga</div><div class="nav-title">Design Lead · Brand & Product</div></div>
+  </a>
+    <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work">Work</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/cv">CV</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="btn-pill nav-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Let's talk </a>
+<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div>
+    <h1 class="hero-headline fade-up" style="animation-delay:.05s">Design that solves problems<br><span class="muted">and opens opportunities.</span></h1>
+    <p class="hero-sub fade-up" style="animation-delay:.12s">Packaging, catalogues, e-commerce, brand identity. I work across the full commercial design stack - starting with the problem, not the aesthetic.</p>
+    <div class="tag-row fade-up" style="animation-delay:.18s">
+      <span class="tag">Brand Systems</span><span class="tag">Packaging</span><span class="tag">E-commerce</span><span class="tag">Product Storytelling</span>
+    </div>
+    <div class="cta-row fade-up" style="animation-delay:.24s">
+      <a href="#work" class="btn-pill">View work </a>
+      <a href="/cv" class="btn-pill outline">Download CV </a>
+      <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank" class="btn-pill outline">LinkedIn </a>
+    </div>
+    <p class="location fade-up" style="animation-delay:.3s;display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Lostock, Bolton · Greater Manchester · UK</p>
+  </div>
+  <div class="avail-card">
+    <div class="avail-header"><h3>Currently shipping</h3><span class="badge-available">Available</span></div>
+    <p class="avail-desc">Currently working on catalogue and e-commerce projects for multi-SKU product ranges.</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">Projects</div><div class="stat-value">60+</div></div>
+      <div class="stat-box"><div class="stat-label">Channels</div><div class="stat-value">B2B/B2C</div></div>
+      <div class="stat-box"><div class="stat-label">Focus</div><div class="stat-value">Systems</div></div>
+    </div>
+    <div class="wib">
+      <p>What I Bring</p>
+      <ul>
+        <li>Product hierarchy and naming that actually converts.</li>
+        <li>Templates built to scale - not just for one job.</li>
+        <li>Clean visuals. Nothing that doesn't need to be there.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="work-section">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Case studies &amp; systems</h2>
+  <p class="section-sub">A selection of projects. Each one started with a problem - here's how I solved it.</p>
+  <div class="filter-bar">
+    <div class="filter-search">
+      <span style="color:var(--gray-400)">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search projects, tags, roles…" oninput="filterCards()">
+    </div>
+    <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
+    <button class="filter-btn" onclick="setFilter(this,'brand-systems')">Brand Systems</button>
+    <button class="filter-btn" onclick="setFilter(this,'product-launch')">Product Launch</button>
+    <button class="filter-btn" onclick="setFilter(this,'content')">Content</button>
+    <button class="filter-btn" onclick="setFilter(this,'e-commerce')">E-commerce</button>
+  </div>
+  <div class="grid" id="projectGrid">
+    <div class="card reveal" data-tags="brand-systems catalogues b2b photography" data-title="Harled Essentials Catalogue">
+      <div class="card-img-wrap">
+        <div class="card-tag-row"><span class="chip chip-dark">Catalogue Design</span><span class="chip chip-light">2025–26</span></div>
+        <div class="ph-led card-img-inner"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">Harled Essentials - Catalogue Vol.1 &amp; 2</div>
+        <div class="card-img-sub">No brief, no assets, no photos. Built the whole thing from scratch.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row"><span class="card-role"><strong>Role:</strong> Design Lead - Sole Designer</span><span class="role-tag">Catalogue</span><span class="role-tag">Photography</span><span class="role-tag">Brand</span></div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list"><li>2 volumes, 12 product categories - all photography and copy included</li><li>Client used it to justify a £10k website investment</li></ul>
+        <div class="card-actions"><a href="/harled" class="btn-pill">View case study </a></div>
+      </div>
+    </div>
+    <div class="card reveal" data-tags="e-commerce product-launch brand" data-title="Omnisolar DIY.com Listings">
+      <div class="card-img-wrap">
+        <div class="card-tag-row"><span class="chip chip-dark">E-commerce</span><span class="chip chip-light">2025–Ongoing</span></div>
+        <div class="ph-solar card-img-inner"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">Omnisolar - Listings &amp; Brand Launch</div>
+        <div class="card-img-sub">Brand new brand on a major retailer platform. Zero presence to full listing suite.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row"><span class="card-role"><strong>Role:</strong> E-commerce Lead</span><span class="role-tag">E-commerce</span><span class="role-tag">Brand</span><span class="role-tag">Strategy</span></div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list"><li>Full DIY.com presence built from nothing</li><li>Premium pricing made possible by getting the brand right first</li></ul>
+        <div class="card-actions"><a href="/omnisolar" class="btn-pill">View case study </a></div>
+      </div>
+    </div>
+    <div class="card reveal" data-tags="catalogues brand-systems b2b photography" data-title="Searchlight Trade Catalogue">
+      <div class="card-img-wrap">
+        <div class="card-tag-row"><span class="chip chip-dark">Catalogue Design</span><span class="chip chip-light">2025</span></div>
+        <div class="ph-social card-img-inner"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">Searchlight - Trade Catalogue</div>
+        <div class="card-img-sub">1,300 products. One catalogue. Visual direction built to work at that scale.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row"><span class="card-role"><strong>Role:</strong> Designer - small team</span><span class="role-tag">Catalogue</span><span class="role-tag">Art Direction</span><span class="role-tag">B2B</span></div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list"><li>1,300 SKUs - structured, shot, and laid out</li><li>Shifted the visual direction from product-on-white to lifestyle</li></ul>
+        <div class="card-actions"><a href="/searchlight" class="btn-pill">View case study </a></div>
+      </div>
+    </div>
+    <div class="card reveal" data-tags="brand-systems packaging retail" data-title="ZIP Strip Brand and Packaging">
+      <div class="card-img-wrap">
+        <div class="card-tag-row"><span class="chip chip-dark">Brand Identity</span><span class="chip chip-light">2025–Ongoing</span></div>
+        <div class="ph-halo card-img-inner"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">ZIP Strip - Brand &amp; Packaging</div>
+        <div class="card-img-sub">Started with a product name and nothing else. Built the brand from there.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row"><span class="card-role"><strong>Role:</strong> Sole Designer</span><span class="role-tag">Brand</span><span class="role-tag">Packaging</span><span class="role-tag">Retail</span></div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list"><li>Logo, guidelines, voice - everything from zero</li><li>20+ SKU variants across retail and trade, plus insert system</li></ul>
+        <div class="card-actions"><a href="/zipstrip" class="btn-pill">View case study </a></div>
+      </div>
+    </div>
+    <div class="card reveal" data-tags="digital-design interactive publishing" data-title="200 Degrees Coffee Digital Suite">
+      <div class="card-img-wrap">
+        <div class="card-tag-row"><span class="chip chip-dark">Digital Design</span><span class="chip chip-light">2024</span></div>
+        <div class="ph-200 card-img-inner"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">200&deg; Coffee - Digital Design Suite</div>
+        <div class="card-img-sub">Five different formats. One brief. All from the same design system.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row"><span class="card-role"><strong>Role:</strong> Sole Designer</span><span class="role-tag">Interactive</span><span class="role-tag">Digital</span><span class="role-tag">Publishing</span></div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list"><li>Five outputs - PDF, EPUB, carousel, poster, data vis</li><li>Same design system running through all of them</li></ul>
+        <div class="card-actions"><a href="/coffee" class="btn-pill">View case study </a></div>
+      </div>
+    </div>
+    <div class="card reveal" data-tags="brand-systems ui-design travel" data-title="Wanderlust Brand and App UI">
+      <div class="card-img-wrap">
+        <div class="card-tag-row"><span class="chip chip-dark">Brand + UI</span><span class="chip chip-light">2025–26</span></div>
+        <div class="ph-wander card-img-inner"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">Wanderlust - Brand &amp; App UI</div>
+        <div class="card-img-sub">Real client, real brief. Brand identity and 20+ app screens designed end to end.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row"><span class="card-role"><strong>Role:</strong> Sole Designer</span><span class="role-tag">Brand</span><span class="role-tag">UI Design</span><span class="role-tag">Travel</span></div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list"><li>Brand identity plus 20+ app screens - onboarding through to payment</li><li>First travel and app project - proved the approach works beyond lighting</li></ul>
+        <div class="card-actions"><a href="/wanderlust" class="btn-pill">View case study </a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="services-teaser">
+  <div class="services-teaser-inner">
+    <div class="teaser-heading">
+      <h2>What I do</h2>
+      <a href="/services" class="btn-pill accent">See all services </a>
+    </div>
+    <div class="service-tiles">
+      <div class="service-tile reveal"><div class="service-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>Brand Systems</h3><p>Logo to full system. Built to work across every format you need it in.</p></div>
+      <div class="service-tile reveal"><div class="service-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V19a2 2 0 01-2 2H5a2 2 0 01-2-2V8"/><rect x="1" y="3" width="22" height="5" rx="1"/><path d="M10 12h4"/></svg></div><h3>Packaging Design</h3><p>Shelf-ready work. Clear hierarchy, proper specs, built for multi-SKU ranges.</p></div>
+      <div class="service-tile reveal"><div class="service-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></div><h3>E-commerce Assets</h3><p>Listing images that stop the scroll. Infographics that answer the question before they ask it.</p></div>
+      <div class="service-tile reveal"><div class="service-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div><h3>Catalogues & Datasheets</h3><p>Data-merge templates for rapid B2B production - one update, every SKU refreshed.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Amarildo Canga</span>
+    <div class="footer-links">
+      <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/amarildo.design/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let currentFilter = 'all';
+  function setFilter(btn, filter) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterCards();
+  }
+  function filterCards() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    document.querySelectorAll('#projectGrid .card').forEach(card => {
+      const tags = card.dataset.tags || '';
+      const title = card.dataset.title.toLowerCase();
+      const ok = (currentFilter === 'all' || tags.includes(currentFilter)) && (!q || title.includes(q) || tags.includes(q));
+      card.style.display = ok ? '' : 'none';
+    });
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+
+<script>
+(function() {
+  (function() {
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var overlay = document.getElementById('menuOverlay');
+  var closeBtn = document.getElementById('menuClose');
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+})();
+})();
+</script>
+</body>
+</html>

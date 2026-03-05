@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV - Amarildo Canga</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .cv-hero { background: var(--black); padding: 64px 40px 56px; }
+  .cv-hero-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; }
+  .cv-hero h1 { font-size: clamp(36px,5vw,52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 8px; color: var(--white); }
+  .cv-hero-role { font-size: 15px; color: rgba(255,255,255,0.45); margin-bottom: 20px; }
+  .cv-hero-summary { font-size: 14.5px; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 600px; font-weight: 300; }
+  .cv-hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .cv-meta-pill { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-pill); padding: 6px 14px; font-size: 12px; color: rgba(255,255,255,0.55); }
+  .cv-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+
+  .cv-body { max-width: var(--max-w); margin: 0 auto; padding: 56px 40px 80px; display: grid; grid-template-columns: 1fr 290px; gap: 56px; align-items: start; }
+
+  .block-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .block-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+  .cv-section { margin-bottom: 52px; }
+
+  /* Experience */
+  .exp-item { padding: 28px 0; border-bottom: 1px solid var(--gray-200); position: relative; }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-item.current::after { content: 'Current'; position: absolute; top: 0; right: 0; background: var(--accent); color: var(--black); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.06em; }
+  .exp-title { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 3px; padding-right: 80px; }
+  .exp-company { font-size: 13.5px; color: var(--gray-600); margin-bottom: 3px; }
+  .exp-date { font-size: 12px; color: var(--gray-400); margin-bottom: 14px; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+  .exp-tag { font-size: 11px; padding: 3px 9px; border: 1px solid var(--gray-200); border-radius: var(--radius-pill); color: var(--gray-400); }
+  .exp-bullets { list-style: none; margin-bottom: 14px; }
+  .exp-bullets li { font-size: 13.5px; color: var(--gray-600); padding: 4px 0 4px 16px; position: relative; line-height: 1.6; }
+  .exp-bullets li::before { content: '·'; position: absolute; left: 0; color: var(--gray-400); font-size: 16px; line-height: 1.4; }
+  .exp-impact { display: flex; flex-wrap: wrap; gap: 7px; }
+  .impact-pill { background: #f0f9e8; border: 1px solid #c8f135; border-radius: var(--radius-pill); padding: 4px 11px; font-size: 11.5px; font-weight: 600; color: #3a6600; }
+
+  /* Education */
+  .edu-item { padding: 18px 0; border-bottom: 1px solid var(--gray-200); display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+  .edu-school { font-size: 13px; color: var(--gray-600); }
+  .edu-location { font-size: 12px; color: var(--gray-400); white-space: nowrap; margin-top: 3px; }
+
+  /* Sidebar */
+  .cv-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 14px; }
+  .cv-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 22px; }
+  .cv-card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 14px; }
+  .contact-row { display: flex; flex-direction: column; gap: 11px; }
+  .cfl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); font-weight: 600; margin-bottom: 2px; }
+  .cfv { font-size: 13px; color: var(--black); font-weight: 500; word-break: break-all; }
+  .cfv a { color: var(--black); text-decoration: none; border-bottom: 1px solid var(--gray-200); transition: border-color 0.2s; }
+  .cfv a:hover { border-color: var(--black); }
+  .skill-list { display: flex; flex-direction: column; gap: 9px; }
+  .skill-row { display: flex; align-items: center; gap: 10px; }
+  .skill-name { font-size: 12.5px; color: var(--gray-600); min-width: 105px; }
+  .skill-bar { flex: 1; height: 3px; background: var(--gray-200); border-radius: 2px; overflow: hidden; }
+  .skill-fill { height: 100%; background: var(--black); border-radius: 2px; width: 0; transition: width 1.1s cubic-bezier(.4,0,.2,1); }
+  .tool-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag { font-size: 11.5px; padding: 4px 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); color: var(--gray-600); }
+  .lang-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--gray-200); }
+  .lang-row:last-child { border-bottom: none; }
+  .lang-name { font-size: 13px; font-weight: 600; }
+  .lang-level { font-size: 12px; color: var(--gray-400); }
+  .achieve-list { list-style: none; }
+  .achieve-item { font-size: 12.5px; color: var(--gray-600); padding: 8px 0 8px 16px; position: relative; border-bottom: 1px solid var(--gray-200); line-height: 1.5; }
+  .achieve-item:last-child { border-bottom: none; }
+  .achieve-item::before { content: ''; position: absolute; left: 0; color: #4a8a00; font-size: 11px; font-weight: 700; top: 10px; }
+
+  @media (max-width: 900px) {
+    .cv-hero { padding: 40px 20px; }
+    .cv-hero-inner { grid-template-columns: 1fr; }
+    .cv-actions { flex-direction: row; }
+    .cv-body { grid-template-columns: 1fr; padding: 36px 20px 60px; gap: 36px; }
+    .cv-sidebar { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">&#x2715;</button>
+  <a href="/">Home</a>
+  <div class="mobile-work-group">
+    <a href="/work" class="mobile-work-parent">Work</a>
+    <div class="mobile-submenu">
+      <a href="/harled">Harled Essentials</a>
+      <a href="/omnisolar">Omnisolar</a>
+      <a href="/searchlight">Searchlight</a>
+      <a href="/zipstrip">ZIP Strip</a>
+      <a href="/coffee">200&#xB0; Coffee</a>
+      <a href="/wanderlust">Wanderlust</a>
+    </div>
+  </div>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/cv">CV</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact" class="mobile-cta">Let&#x2019;s talk</a>
+</div>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-avatar">AC</div>
+    <div><div class="nav-name">Amarildo Canga</div><div class="nav-title">Design Lead · Brand & Product</div></div>
+  </a>
+    <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work">Work</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/cv">CV</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="btn-pill nav-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Let's talk </a>
+<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="cv-hero">
+  <div class="cv-hero-inner">
+    <div class="fade-up">
+      <div class="section-label" style="color:rgba(255,255,255,0.35)">CV / Résumé</div>
+      <h1>Amarildo Canga</h1>
+      <div class="cv-hero-role">Design Lead &amp; Senior Graphic Designer · Brand, Packaging &amp; E-commerce</div>
+      <p class="cv-hero-summary">11 years building design systems that actually work in production. I've led design across brand identity, packaging, trade catalogues and e-commerce - cutting a 9-month catalogue process to 4.5 months, contributing to a 25% sales increase, and building ranges from zero. I don't just design things - I build the system so the next 50 products are easier than the first.</p>
+      <div class="cv-hero-meta">
+        <span class="cv-meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Lostock, Bolton</span>
+        <span class="cv-meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> info&#64;amarildocanga.com</span>
+        <span class="cv-meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> +44 7577 089179</span>
+              </div>
+    </div>
+    <div class="cv-actions fade-up" style="animation-delay:.15s">
+      <a href="https://res.cloudinary.com/dylkbwins/image/upload/v1772634375/updat.pdf" target="_blank" class="btn-pill">Download CV </a>
+      <a href="/contact" class="btn-pill outline" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.65);">Hire me </a>
+    </div>
+  </div>
+</div>
+
+<div class="cv-body">
+  <main>
+
+    <div class="cv-section reveal">
+      <div class="block-label">Experience</div>
+
+      <!-- EXPRESS ELECTRICAL -->
+      <div class="exp-item current">
+        <div class="exp-title">Design Lead</div>
+        <div class="exp-company">Express Electrical - Manchester, UK</div>
+        <div class="exp-date">March 2025 — Present</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Design Lead</span>
+          <span class="exp-tag">Brand Systems</span>
+          <span class="exp-tag">E-commerce</span>
+          <span class="exp-tag">Harled Essentials</span>
+          <span class="exp-tag">Omnisolar</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Running brand and product design across two product ranges - Harled Essentials and Omnisolar</li>
+          <li>Building packaging and listing systems for multi-SKU ranges - B2B and retail</li>
+          <li>Covering e-commerce assets, catalogue design and retailer onboarding across both brands</li>
+          <li>Setting up design standards and workflows so output is consistent without everything needing to go through me</li>
+        </ul>
+      </div>
+
+      <!-- SEARCHLIGHT -->
+      <div class="exp-item">
+        <div class="exp-title">Lead Graphic Designer</div>
+        <div class="exp-company">Searchlight Electric - Manchester, UK</div>
+        <div class="exp-date">August 2021 — March 2025</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Creative Direction</span>
+          <span class="exp-tag">Team Leadership</span>
+          <span class="exp-tag">Catalogues</span>
+          <span class="exp-tag">Brand</span>
+          <span class="exp-tag">Campaigns</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Led the creative on marketing campaigns - contributed to a 25% increase in sales</li>
+          <li>Cut catalogue production from 9 months to 4.5 months by rebuilding the process from scratch</li>
+          <li>Managed and mentored a team of designers - we had a reputation for hitting deadlines without cutting corners</li>
+          <li>Developed campaigns that pushed the brand forward and actually connected with the right audience</li>
+        </ul>
+        <div class="exp-impact">
+          <span class="impact-pill"> 25% sales increase</span>
+          <span class="impact-pill">50% faster catalogue production</span>
+          <span class="impact-pill">Team of designers led</span>
+        </div>
+      </div>
+
+      <!-- LACONIC -->
+      <div class="exp-item">
+        <div class="exp-title">Senior Graphic Designer</div>
+        <div class="exp-company">Laconic - Liverpool, UK</div>
+        <div class="exp-date">August 2020 — January 2022</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Senior Designer</span>
+          <span class="exp-tag">Client Management</span>
+          <span class="exp-tag">Brand Strategy</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Helped bring in some of the agency's biggest clients - good work is the best sales pitch</li>
+          <li>Client investment grew by 30% - built the case by showing results, not just presentations</li>
+          <li>20% growth in client retention. Clients stayed because the work kept getting better.</li>
+          <li>Worked across teams on integrated campaigns - brand, digital, print all joined up</li>
+        </ul>
+        <div class="exp-impact">
+          <span class="impact-pill"> 30% client investment</span>
+          <span class="impact-pill">20% retention growth</span>
+        </div>
+      </div>
+
+      <!-- WASHINGTON MILLS -->
+      <div class="exp-item">
+        <div class="exp-title">Quality Control</div>
+        <div class="exp-company">Washington Mills - Manchester, UK</div>
+        <div class="exp-date">March 2019 — August 2021</div>
+        <ul class="exp-bullets">
+          <li>Quality control and production management in a manufacturing setting</li>
+        </ul>
+      </div>
+
+      <!-- M&S MERCANTILE -->
+      <div class="exp-item">
+        <div class="exp-title">Supervisor of Production</div>
+        <div class="exp-company">M&amp;S Mercantile - Manchester, UK</div>
+        <div class="exp-date">March 2017 — February 2019</div>
+        <ul class="exp-bullets">
+          <li>Supervised production operations and managed workflow within a fast-paced commercial environment</li>
+        </ul>
+      </div>
+
+      <!-- TMG -->
+      <div class="exp-item">
+        <div class="exp-title">Graphic Designer</div>
+        <div class="exp-company">T.M.G. Srl - Milan, Italy</div>
+        <div class="exp-date">April 2014 — September 2016</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Branding</span>
+          <span class="exp-tag">Print</span>
+          <span class="exp-tag">Rebranding</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Led a rebrand that resulted in 15% higher brand recognition</li>
+          <li>Designed launch materials for several key products - all delivered on time</li>
+          <li>Built long-term client relationships by doing the work well, consistently</li>
+        </ul>
+        <div class="exp-impact">
+          <span class="impact-pill"> 15% brand recognition</span>
+        </div>
+      </div>
+
+      <!-- GABBIANO -->
+      <div class="exp-item">
+        <div class="exp-title">Graphic Designer</div>
+        <div class="exp-company">Gabbiano Editore - Milan, Italy</div>
+        <div class="exp-date">October 2012 — April 2014</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Editorial</span>
+          <span class="exp-tag">Print & Digital</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Visual content for print and digital - editorial and publication work</li>
+          <li>Worked closely with editorial teams, cut production workflows by 10%</li>
+          <li>Recognised for contributions to major editorial projects</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="cv-section reveal">
+      <div class="block-label">Education</div>
+      <div class="edu-item">
+        <div><div class="edu-title">Diploma in Graphic Design</div><div class="edu-school">Shillington College</div></div>
+        <div class="edu-location">Manchester, UK</div>
+      </div>
+      <div class="edu-item">
+        <div><div class="edu-title">Bachelor of Arts in Visual Communication</div><div class="edu-school">"ACME"</div></div>
+        <div class="edu-location">Novara, Italy</div>
+      </div>
+      <div class="edu-item">
+        <div><div class="edu-title">Diploma in Fine Arts</div><div class="edu-school">I.S. Leardi</div></div>
+        <div class="edu-location">Italy</div>
+      </div>
+    </div>
+
+  </main>
+
+  <aside class="cv-sidebar">
+
+    <div class="cv-card reveal">
+      <div class="cv-card-label">Contact</div>
+      <div class="contact-row">
+        <div><div class="cfl">Email</div><div class="cfv">info&#64;amarildocanga.com</div></div>
+        <div><div class="cfl">Phone</div><div class="cfv" style="color:var(--black);"><span style="unicode-bidi:isolate;">+44 7577 089179</span></div></div>
+        <div><div class="cfl">Location</div><div class="cfv">Lostock, Bolton · Greater Manchester · UK</div></div>
+      </div>
+    </div>
+
+    <div class="cv-card reveal">
+      <div class="cv-card-label">Core skills</div>
+      <div class="skill-list">
+        <div class="skill-row"><span class="skill-name">Creative Direction</span><div class="skill-bar"><div class="skill-fill" data-width="96"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Brand Development</span><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Adobe Creative Suite</span><div class="skill-bar"><div class="skill-fill" data-width="96"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Typography</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Team Leadership</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Print Design</span><div class="skill-bar"><div class="skill-fill" data-width="93"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Motion Graphics</span><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div>
+        <div class="skill-row"><span class="skill-name">UX/UI Design</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+      </div>
+    </div>
+
+    <div class="cv-card reveal">
+      <div class="cv-card-label">Tools</div>
+      <div class="tool-cloud">
+        <span class="tool-tag">Adobe CC</span>
+        <span class="tool-tag">InDesign</span>
+        <span class="tool-tag">Photoshop</span>
+        <span class="tool-tag">Illustrator</span>
+        <span class="tool-tag">After Effects</span>
+        <span class="tool-tag">Figma</span>
+        <span class="tool-tag">Data Merge</span>
+        <span class="tool-tag">Canva</span>
+        <span class="tool-tag">MS Office</span>
+        <span class="tool-tag">Web Design</span>
+        <span class="tool-tag">Motion Graphics</span>
+      </div>
+    </div>
+
+    <div class="cv-card reveal">
+      <div class="cv-card-label">Key achievements</div>
+      <ul class="achieve-list">
+        <li class="achieve-item">Reduced catalogue production time by 50%+ at Searchlight Electric - from 9 months to 4 months</li>
+        <li class="achieve-item">25% sales increase through targeted, visually strong campaigns</li>
+        <li class="achieve-item">Landed major clients at Laconic, significantly increasing company revenue</li>
+        <li class="achieve-item">Built and led a top-performing design team at Searchlight Electric</li>
+        <li class="achieve-item">30% increase in client investment at Laconic</li>
+        <li class="achieve-item">15% brand recognition uplift at T.M.G. via rebrand</li>
+      </ul>
+    </div>
+
+    <div class="cv-card reveal">
+      <div class="cv-card-label">Languages</div>
+      <div class="lang-row"><span class="lang-name">English</span><span class="lang-level">Fluent</span></div>
+      <div class="lang-row"><span class="lang-name">Italian</span><span class="lang-level">Native</span></div>
+      
+    </div>
+
+    <a href="https://res.cloudinary.com/dylkbwins/image/upload/v1772634375/updat.pdf" target="_blank" class="btn-pill" style="justify-content:center;">Download full CV (PDF) </a>
+
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 Amarildo Canga</span>
+    <div class="footer-links">
+      <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/amarildo.design/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  // Reveal animation
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  // Skill bars
+  document.querySelectorAll('.skill-fill').forEach(function(el) {
+    setTimeout(function() { el.style.width = (el.getAttribute('data-width') || 0) + '%'; }, 600);
+  });
+});
+
+// Burger menu
+(function() {
+  (function() {
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var overlay = document.getElementById('menuOverlay');
+  var closeBtn = document.getElementById('menuClose');
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+})();
+})();
+</script>
+</body>
+</html>

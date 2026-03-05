@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amarildo Canga — Design Lead · Brand & Product</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --white: #ffffff;
+    --off-white: #f5f4f1;
+    --gray-100: #f0efe9;
+    --gray-200: #e2e1da;
+    --gray-400: #a0a09a;
+    --gray-600: #6b6b65;
+    --gray-800: #2c2c28;
+    --accent: #c8f135;
+    --red: #e5321b;
+    --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-pill: 100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--off-white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--black);
+  }
+
+  .nav-avatar {
+    width: 34px; height: 34px;
+    background: var(--black);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .nav-name { font-family: var(--font-display); font-weight: 600; font-size: 14px; line-height: 1.2; }
+  .nav-title { font-size: 12px; color: var(--gray-600); font-weight: 300; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--black);
+    color: var(--white);
+    padding: 9px 18px;
+    border-radius: var(--radius-pill);
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+  }
+
+  .btn-pill:hover { background: var(--gray-800); transform: translateY(-1px); }
+
+  .btn-pill.outline {
+    background: transparent;
+    color: var(--black);
+    border: 1.5px solid var(--gray-200);
+  }
+
+  .btn-pill.outline:hover { border-color: var(--black); background: transparent; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 64px 40px 48px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    max-width: 1120px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5.5vw, 58px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .hero-headline .muted {
+    color: var(--gray-400);
+  }
+
+  .hero-sub {
+    color: var(--gray-600);
+    font-size: 15px;
+    max-width: 460px;
+    font-weight: 300;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .tag {
+    padding: 5px 12px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-pill);
+    font-size: 12.5px;
+    color: var(--gray-600);
+    font-weight: 400;
+    background: transparent;
+    cursor: default;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .location {
+    font-size: 13px;
+    color: var(--gray-400);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ── AVAILABILITY CARD ── */
+  .avail-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+  }
+
+  .avail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+
+  .avail-header h3 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-available {
+    background: var(--black);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .avail-desc {
+    font-size: 13.5px;
+    color: var(--gray-600);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .stat-box {
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-400);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .what-i-bring {
+    border-top: 1px solid var(--gray-200);
+    padding-top: 16px;
+  }
+
+  .what-i-bring p {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-400);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .what-i-bring ul {
+    list-style: none;
+  }
+
+  .what-i-bring li {
+    font-size: 13px;
+    color: var(--gray-600);
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .what-i-bring li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--gray-400);
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  /* ── WORK SECTION ── */
+  .section-wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 440px;
+    margin-bottom: 28px;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .filter-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-pill);
+    padding: 8px 16px;
+    flex: 1;
+    max-width: 300px;
+    transition: border-color 0.2s;
+  }
+
+  .filter-search:focus-within { border-color: var(--black); }
+
+  .filter-search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--black);
+    width: 100%;
+  }
+
+  .filter-search input::placeholder { color: var(--gray-400); }
+
+  .filter-icon { color: var(--gray-400); font-size: 14px; }
+
+  .filter-btn {
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--gray-200);
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+
+  .filter-btn:hover { border-color: var(--black); color: var(--black); }
+  .filter-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+  /* ── CASE STUDY GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    background: var(--gray-200);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-img-wrap {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .card-img-inner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover .card-img-inner { transform: scale(1.03); }
+
+  .card-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .card-img-title {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .card-img-sub {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    color: rgba(255,255,255,0.78);
+    font-size: 12.5px;
+    line-height: 1.4;
+    padding-bottom: 16px;
+  }
+
+  .card-tag-row {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: flex;
+    gap: 6px;
+  }
+
+  .chip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.03em;
+  }
+
+  .chip-dark { background: rgba(0,0,0,0.55); color: var(--white); backdrop-filter: blur(4px); }
+  .chip-red { background: var(--red); color: var(--white); }
+  .chip-white { background: rgba(255,255,255,0.9); color: var(--black); }
+  .chip-year { background: rgba(255,255,255,0.18); color: var(--white); }
+
+  .card-body {
+    padding: 18px 20px 20px;
+  }
+
+  .card-role-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .card-role {
+    font-size: 13px;
+    color: var(--gray-600);
+    font-weight: 400;
+  }
+
+  .role-tag {
+    font-size: 11.5px;
+    padding: 3px 9px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-pill);
+    color: var(--gray-600);
+  }
+
+  .impact-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .impact-list {
+    list-style: none;
+    margin-bottom: 18px;
+  }
+
+  .impact-list li {
+    font-size: 13px;
+    color: var(--gray-600);
+    padding: 2.5px 0 2.5px 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .impact-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--gray-400);
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Placeholder images using CSS gradients */
+  .img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .img-led { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); }
+  .img-solar { background: linear-gradient(135deg, #2c3e50 0%, #3d5a6e 50%, #4a7c94 100%); }
+  .img-social { background: linear-gradient(135deg, #2c2416 0%, #4a3b2c 50%, #6b5a46 100%); }
+  .img-halo { background: linear-gradient(135deg, #1a0a0a 0%, #3d0f0f 50%, #6b1515 100%); }
+
+  .img-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    font-style: italic;
+  }
+
+  /* ── ABOUT SECTION ── */
+  .about-section {
+    background: var(--gray-100);
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 72px 40px;
+  }
+
+  .about-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .about-left .section-label { margin-bottom: 6px; }
+  .about-left .section-title { font-size: 32px; margin-bottom: 14px; }
+
+  .about-left p {
+    font-size: 14px;
+    color: var(--gray-600);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .about-right-bio {
+    font-size: 16px;
+    color: var(--gray-800);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .skills-box {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+
+  .skills-box-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .skills-box ul { list-style: none; }
+  .skills-box li {
+    font-size: 13.5px;
+    color: var(--gray-600);
+    padding: 3px 0 3px 14px;
+    position: relative;
+  }
+
+  .skills-box li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--gray-400);
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .about-cta-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* ── CONTACT SECTION ── */
+  .contact-section {
+    padding: 72px 40px 80px;
+  }
+
+  .contact-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .contact-left {
+    background: var(--black);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    color: var(--white);
+    height: 100%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .contact-left .section-label {
+    color: rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contact-left .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 18px; height: 18px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 5px;
+    vertical-align: middle;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/%3E%3C/svg%3E");
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .contact-left h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--white);
+    margin: 18px 0 14px;
+  }
+
+  .contact-left p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .contact-info-item {
+    background: rgba(255,255,255,0.07);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  .contact-info-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .contact-info-value {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 400;
+  }
+
+  /* Contact form */
+  .contact-right {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+
+  .contact-right h2 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .contact-right .form-desc {
+    font-size: 13.5px;
+    color: var(--gray-600);
+    font-weight: 300;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--black);
+    background: var(--off-white);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    resize: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--black);
+    background: var(--white);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--gray-400); }
+
+  .form-group textarea { min-height: 100px; }
+
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--gray-200);
+    padding: 20px 40px;
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--black); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-left > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.12s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.18s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.24s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.30s; }
+
+  .avail-card {
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  .card {
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.18s; }
+  .card:nth-child(3) { animation-delay: 0.26s; }
+  .card:nth-child(4) { animation-delay: 0.34s; }
+
+  /* Filter JS */
+  .card[data-hidden="true"] { display: none; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .hero { grid-template-columns: 1fr; padding: 40px 20px 32px; }
+    .grid { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .contact-left { min-height: auto; }
+    .section-wrap { padding: 0 20px 60px; }
+    .about-section { padding: 48px 20px; }
+    .contact-section { padding: 48px 20px 60px; }
+    footer { padding: 20px; flex-direction: column; gap: 12px; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">&#x2715;</button>
+  <a href="/">Home</a>
+  <div class="mobile-work-group">
+    <a href="/work" class="mobile-work-parent">Work</a>
+    <div class="mobile-submenu">
+      <a href="/harled">Harled Essentials</a>
+      <a href="/omnisolar">Omnisolar</a>
+      <a href="/searchlight">Searchlight</a>
+      <a href="/zipstrip">ZIP Strip</a>
+      <a href="/coffee">200&#xB0; Coffee</a>
+      <a href="/wanderlust">Wanderlust</a>
+    </div>
+  </div>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/cv">CV</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact" class="mobile-cta">Let&#x2019;s talk</a>
+</div>
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-avatar">AC</div>
+    <div>
+      <div class="nav-name">Amarildo Canga</div>
+      <div class="nav-title">Design Lead · Brand & Product</div>
+    </div>
+  </a>
+    <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work">Work</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/cv">CV</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Let's talk </a>
+<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <h1 class="hero-headline">
+      Design systems that ship —<br>
+      <span class="muted">fast, clear, premium.</span>
+    </h1>
+    <p class="hero-sub">I build brand + product ecosystems across packaging, catalogues, and e-commerce — with a spec-led mindset and a minimal aesthetic.</p>
+    <div class="tag-row">
+      <span class="tag">Brand Systems</span>
+      <span class="tag">Packaging</span>
+      <span class="tag">E-commerce</span>
+      <span class="tag">Product Storytelling</span>
+    </div>
+    <div class="cta-row">
+      <a href="#work" class="btn-pill">View work </a>
+      <a href="#" class="btn-pill outline">Download CV </a>
+      <a href="#" class="btn-pill outline">LinkedIn </a>
+    </div>
+    <p class="location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Lostock, Bolton · Greater Manchester · UK</p>
+  </div>
+
+  <div class="avail-card">
+    <div class="avail-header">
+      <h3>Currently shipping</h3>
+      <span class="badge-available">Available</span>
+    </div>
+    <p class="avail-desc">Catalogue + e-commerce systems for multi-SKU lighting ranges.</p>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-label">Projects</div>
+        <div class="stat-value">60+</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Channels</div>
+        <div class="stat-value">B2B/B2C</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Focus</div>
+        <div class="stat-value">Systems</div>
+      </div>
+    </div>
+    <div class="what-i-bring">
+      <p>What I Bring</p>
+      <ul>
+        <li>Clear product hierarchy + naming that converts.</li>
+        <li>Templates that scale across SKUs.</li>
+        <li>Premium visuals without visual noise.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── WORK ── -->
+<section id="work" class="section-wrap">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Case studies &amp; systems</h2>
+  <p class="section-sub">A few projects showing how I think: structure first, clarity always, and design that scales.</p>
+
+  <div class="filter-bar">
+    <div class="filter-search">
+      <span class="filter-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search projects, tags, roles…" oninput="filterCards()">
+    </div>
+    <button class="filter-btn active" onclick="setFilter(this, 'all')">All</button>
+    <button class="filter-btn" onclick="setFilter(this, 'brand-systems')">Brand Systems</button>
+    <button class="filter-btn" onclick="setFilter(this, 'product-launch')">Product Launch</button>
+    <button class="filter-btn" onclick="setFilter(this, 'content')">Content</button>
+    <button class="filter-btn" onclick="setFilter(this, 'e-commerce')">E-commerce</button>
+  </div>
+
+  <div class="grid" id="projectGrid">
+
+    <!-- Card 1 -->
+    <div class="card reveal" data-tags="brand-systems packaging e-commerce b2b" data-title="Harled Essentials LED Strip Kits">
+      <div class="card-img-wrap">
+        <div class="img-placeholder img-led card-img-inner" style="height:100%;"></div>
+        <div class="card-img-overlay"></div>
+        <div class="img-label">Harled Essentials — LED Strip Kits</div>
+        <div class="card-img-title">Harled Essentials — LED Strip Kits</div>
+        <div class="card-img-sub">A modular packaging + listing system designed to scale across SKUs while staying minimal, premium, and easy to shop.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row">
+          <span class="card-role"><strong>Role:</strong> Design Lead / Marketing</span>
+          <span class="role-tag">Brand</span>
+          <span class="role-tag">Packaging</span>
+          <span class="role-tag">E-commerce</span>
+          <span class="role-tag">B2B</span>
+        </div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list">
+          <li>Unified product architecture across multiple kit variants</li>
+          <li>Created a scalable template system for faster rollouts</li>
+          <li>Improved shelf clarity + online scannability</li>
+        </ul>
+        <div class="card-actions">
+          <a href="/harled" class="btn-pill">View case study </a>
+          <a href="#" class="btn-pill outline">Live </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card reveal" data-tags="product-launch catalogues sales-assets" data-title="Omnisolar Solar Lighting Range">
+      <div class="card-img-wrap">
+        <div class="card-tag-row">
+          <span class="chip chip-dark">Product Launch</span>
+          <span class="chip chip-white" style="color:#333;">2025</span>
+        </div>
+        <div class="img-placeholder img-solar card-img-inner" style="height:100%;"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">Omnisolar — Solar Lighting Range</div>
+        <div class="card-img-sub">A launch system: product visuals, datasheets, and retailer-ready storytelling built for speed and clarity.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row">
+          <span class="card-role"><strong>Role:</strong> Design Lead / Account Manager</span>
+          <span class="role-tag">Product</span>
+          <span class="role-tag">Catalogues</span>
+          <span class="role-tag">Sales Assets</span>
+        </div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list">
+          <li>Designed sales-ready assets for retailer onboarding</li>
+          <li>Built spec-led templates for rapid data-sheet production</li>
+          <li>Improved product storytelling for non-technical buyers</li>
+        </ul>
+        <div class="card-actions">
+          <a href="/omnisolar" class="btn-pill">View case study </a>
+          <a href="#" class="btn-pill outline">Live </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card reveal" data-tags="content strategy growth social-media" data-title="UNITOM Social Content System">
+      <div class="card-img-wrap">
+        <div class="card-tag-row">
+          <span class="chip chip-dark">Content</span>
+          <span class="chip chip-white" style="color:#333;">2025</span>
+        </div>
+        <div class="img-placeholder img-social card-img-inner" style="height:100%;"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">UNITOM — Social &amp; Content System</div>
+        <div class="card-img-sub">A minimal content system for a visual-arts bookshop: fast templates, clean motion, and a sharper voice.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row">
+          <span class="card-role"><strong>Role:</strong> Social Media Manager</span>
+          <span class="role-tag">Content</span>
+          <span class="role-tag">Strategy</span>
+          <span class="role-tag">Growth</span>
+        </div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list">
+          <li>Built a repeatable content engine across platforms</li>
+          <li>Improved consistency of brand voice + visuals</li>
+          <li>Designed templates for faster weekly output</li>
+        </ul>
+        <div class="card-actions">
+          <a href="/searchlight" class="btn-pill">View case study </a>
+          <a href="#" class="btn-pill outline">Live </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card reveal" data-tags="e-commerce retail performance listing" data-title="HALO Bulkhead Listing Sales Toolkit">
+      <div class="card-img-wrap">
+        <div class="card-tag-row">
+          <span class="chip chip-red">E-commerce</span>
+          <span class="chip chip-white" style="color:#333;">2026</span>
+        </div>
+        <div class="img-placeholder img-halo card-img-inner" style="height:100%;"></div>
+        <div class="card-img-overlay"></div>
+        <div class="card-img-title">HALO Bulkhead — Listing &amp; Sales Toolkit</div>
+        <div class="card-img-sub">A marketplace-ready toolkit: images, naming, and messaging designed to convert in fast-scrolling environments.</div>
+      </div>
+      <div class="card-body">
+        <div class="card-role-row">
+          <span class="card-role"><strong>Role:</strong> Design Lead</span>
+          <span class="role-tag">E-commerce</span>
+          <span class="role-tag">Retail</span>
+          <span class="role-tag">Performance</span>
+        </div>
+        <div class="impact-label">Impact</div>
+        <ul class="impact-list">
+          <li>Spec-first product hierarchy for marketplaces</li>
+          <li>Created image templates for variant clarity</li>
+          <li>Reduced back-and-forth for reps and customers</li>
+        </ul>
+        <div class="card-actions">
+          <a href="/zipstrip" class="btn-pill">View case study </a>
+          <a href="#" class="btn-pill outline">Live </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about" class="about-section">
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="section-label">About</div>
+      <h2 class="section-title">System-first designer</h2>
+      <p>I design like an operator: build the structure, remove friction, then make it beautiful.</p>
+    </div>
+    <div class="about-right">
+      <p class="about-right-bio">I specialise in brand and product design for complex catalogues and marketplace environments. My work lives at the intersection of creativity and operations — templates, spec-led visual systems, and assets that help teams sell faster.</p>
+      <div class="skills-grid">
+        <div class="skills-box">
+          <div class="skills-box-label">Strengths</div>
+          <ul>
+            <li>Brand architecture</li>
+            <li>Packaging systems</li>
+            <li>E-commerce assets</li>
+            <li>Copy-led design</li>
+          </ul>
+        </div>
+        <div class="skills-box">
+          <div class="skills-box-label">Tools</div>
+          <ul>
+            <li>Adobe CC</li>
+            <li>InDesign data workflows</li>
+            <li>Figma</li>
+            <li>Automation templates</li>
+          </ul>
+        </div>
+      </div>
+      <div class="about-cta-row">
+        <a href="#contact" class="btn-pill">Start a project </a>
+        <a href="#work" class="btn-pill outline">See case studies </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div>
+        <div class="section-label">Contact</div>
+        <h2>Let's build something clean and scalable.</h2>
+        <p>Tell me what you're shipping, your timelines, and what "success" looks like.</p>
+      </div>
+      <div>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value">info&#64;amarildocanga.com</div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Location</div>
+          <div class="contact-info-value">UK · Remote/Hybrid</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <h2>Send a message</h2>
+      <p class="form-desc">Tell me what you're working on — I'll get back to you within 24 hours.</p>
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Company</label>
+          <input type="text" placeholder="Company (optional)">
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:14px;">
+        <label>Email</label>
+        <input type="email" placeholder="you@company.com">
+      </div>
+      <div class="form-group">
+        <label>What are we building?</label>
+        <textarea placeholder="A new product range, a catalogue system, a portfolio refresh…"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-pill" type="button">Send message </button>
+        <a href="#" class="btn-pill outline">Book a call </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="footer-copy">© 2026 Amarildo Canga</span>
+  <div class="footer-links">
+    <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank">LinkedIn</a>
+    <a href="https://www.instagram.com/amarildo.design/" target="_blank">Instagram</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, {
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+});
+
+(function() {
+  (function() {
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var overlay = document.getElementById('menuOverlay');
+  var closeBtn = document.getElementById('menuClose');
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+})();
+})();
+</script>
+</body>
+</html>

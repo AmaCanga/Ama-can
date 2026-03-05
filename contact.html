@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Amarildo Canga</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .contact-hero { max-width: var(--max-w); margin: 0 auto; padding: 64px 40px 48px; }
+  .contact-hero h1 { font-size: clamp(38px,5.5vw,58px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; margin-bottom: 16px; }
+  .contact-hero h1 span { color: var(--gray-400); }
+  .contact-hero p { font-size: 15px; color: var(--gray-600); max-width: 500px; line-height: 1.75; }
+  .contact-body { max-width: var(--max-w); margin: 0 auto; padding: 0 40px 80px; }
+  .contact-reach { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+  .reach-card { border-radius: var(--radius); padding: 36px; display: flex; flex-direction: column; gap: 20px; }
+  .reach-card.email-card { background: var(--black); }
+  .reach-card.phone-card { background: var(--white); border: 1px solid var(--gray-200); }
+  .reach-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 4px; }
+  .email-card .reach-label { color: rgba(255,255,255,0.35); }
+  .phone-card .reach-label { color: var(--gray-400); }
+  .reach-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+  .email-card .reach-title { color: var(--white); }
+  .phone-card .reach-title { color: var(--black); }
+  .reach-desc { font-size: 13px; line-height: 1.6; }
+  .email-card .reach-desc { color: rgba(255,255,255,0.45); }
+  .phone-card .reach-desc { color: var(--gray-600); }
+  .reach-action { display: inline-block; text-decoration: none; border-radius: var(--radius-pill); padding: 12px 24px; font-size: 13.5px; font-weight: 600; transition: opacity 0.2s; }
+  .reach-action:hover { opacity: 0.85; }
+  .email-card .reach-action { background: var(--accent); color: var(--black); }
+  .phone-card .reach-action { background: var(--black); color: var(--white); }
+  .reach-value { font-size: 13px; }
+  .email-card .reach-value { color: rgba(255,255,255,0.35); }
+  .phone-card .reach-value { color: var(--gray-400); }
+  .contact-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 0; }
+  .meta-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px 22px; }
+  .meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 6px; }
+  .meta-value { font-size: 13.5px; color: var(--black); font-weight: 500; line-height: 1.5; }
+  .social-btn { flex: 1; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 10px; text-align: center; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 500; transition: all 0.2s; }
+  .social-btn:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+  .cl-availability { background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .cl-avail-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+  .cl-avail-text { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
+  .cl-avail-text strong { color: var(--black); }
+  @media (max-width: 700px) {
+    .contact-reach { grid-template-columns: 1fr; }
+    .contact-meta { grid-template-columns: 1fr; }
+  }
+  .faq-section { max-width: var(--max-w); margin: 0 auto; padding: 0 40px 80px; }
+  .faq-section h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .faq-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .faq-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 22px; }
+  .faq-q { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+  @media (max-width: 900px) {
+    .contact-hero { padding: 40px 20px 32px; }
+    .contact-body { padding: 0 20px 60px; }
+    .faq-section { padding: 0 20px 60px; }
+    .faq-list { grid-template-columns: 1fr; }
+    .contact-left { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">&#x2715;</button>
+  <a href="/">Home</a>
+  <div class="mobile-work-group">
+    <a href="/work" class="mobile-work-parent">Work</a>
+    <div class="mobile-submenu">
+      <a href="/harled">Harled Essentials</a>
+      <a href="/omnisolar">Omnisolar</a>
+      <a href="/searchlight">Searchlight</a>
+      <a href="/zipstrip">ZIP Strip</a>
+      <a href="/coffee">200° Coffee</a>
+      <a href="/wanderlust">Wanderlust</a>
+    </div>
+  </div>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/cv">CV</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact" class="mobile-cta">Let&#x2019;s talk</a>
+</div>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-avatar">AC</div>
+    <div>
+      <div class="nav-name">Amarildo Canga</div>
+      <div class="nav-title">Design Lead &middot; Brand &amp; Product</div>
+    </div>
+  </a>
+    <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work">Work</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/cv">CV</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="btn-pill nav-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Let's talk </a>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="contact-hero">
+  <div class="section-label fade-up">Contact</div>
+  <h1 class="fade-up" style="animation-delay:.08s">Get in touch.<br><span>No forms, no fuss.</span></h1>
+  <p class="fade-up" style="animation-delay:.16s">Email me or call me directly. That's it. No contact form, no auto-reply, no waiting around.</p>
+</div>
+
+<div class="contact-body">
+
+  <div class="cl-availability reveal">
+    <div class="cl-avail-dot"></div>
+    <div class="cl-avail-text"><strong>Currently available.</strong> Taking on new projects from March 2026 - system builds, launch projects, and retained design support.</div>
+  </div>
+
+  <div class="contact-reach reveal">
+    <div class="reach-card email-card">
+      <div>
+        <div class="reach-label">Best way to reach me</div>
+        <div class="reach-title">Send me an email</div>
+      </div>
+      <div class="reach-desc">Tell me what you're working on, your timeline, and what you need. I'll come back to you within 24 hours.</div>
+      <a href="mailto:info@amarildocanga.com" class="reach-action">info@amarildocanga.com</a>
+      <div class="reach-value">I check email daily &middot; 24hr response</div>
+    </div>
+    <div class="reach-card phone-card">
+      <div>
+        <div class="reach-label">Prefer to talk</div>
+        <div class="reach-title">Call me directly</div>
+      </div>
+      <div class="reach-desc">If you'd rather have a quick conversation before committing to an email, just call.</div>
+      <a href="tel:+447577089179" class="reach-action">+44 7577 089179</a>
+      <div class="reach-value">Mon - Fri &middot; 9am to 6pm GMT</div>
+    </div>
+  </div>
+
+  <div class="contact-meta reveal">
+    <div class="meta-card">
+      <div class="meta-label">Location</div>
+      <div class="meta-value">Lostock, Bolton<br>Greater Manchester &middot; UK<br>Remote available</div>
+    </div>
+    <div class="meta-card">
+      <div class="meta-label">Find me online</div>
+      <div class="meta-value">
+        <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank" style="color:var(--black);text-decoration:none;border-bottom:1px solid var(--gray-200);">LinkedIn</a><br>
+        <a href="https://www.instagram.com/amarildo.design/" target="_blank" style="color:var(--black);text-decoration:none;border-bottom:1px solid var(--gray-200);">Instagram</a>
+      </div>
+    </div>
+    <div class="meta-card">
+      <div class="meta-label">Response time</div>
+      <div class="meta-value">Within 24 hours<br><span style="font-size:12px;color:var(--gray-400);font-weight:400;">Usually same day</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="faq-section">
+  <h2>Common questions</h2>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <div class="faq-q">How quickly can you start?</div>
+      <div class="faq-a">I&#x2019;m currently available and can typically start within 1 to 2 weeks depending on scope. Get in touch and we&#x2019;ll confirm a timeline that works.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Do you work remotely?</div>
+      <div class="faq-a">Yes. I work fully remotely with clients across the UK and Europe. I&#x2019;m also available for hybrid arrangements in the North West or London.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">What do you need from me to get started?</div>
+      <div class="faq-a">A brief, your timeline, existing brand assets if you have them, and a clear sense of what success looks like. I&#x2019;ll handle the structure from there.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Can you work within an existing brand?</div>
+      <div class="faq-a">Absolutely. Most projects involve working within or extending an existing visual identity rather than building from scratch.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 Amarildo Canga</span>
+    <div class="footer-links">
+      <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/amarildo.design/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var overlay = document.getElementById('menuOverlay');
+  var closeBtn = document.getElementById('menuClose');
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+});
+</script>
+</body>
+</html>

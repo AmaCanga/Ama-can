@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services - Amarildo Canga</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .services-hero { max-width: var(--max-w); margin: 0 auto; padding: 64px 40px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; }
+  .services-hero h1 { font-size: clamp(36px,5vw,54px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.07; margin-bottom: 16px; }
+  .services-hero p { font-size: 15px; color: var(--gray-600); line-height: 1.75; max-width: 440px; }
+  .hero-stats { display: flex; gap: 32px; }
+  .hero-stat-num { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .hero-stat-label { font-size: 12px; color: var(--gray-400); margin-top: 3px; }
+
+  .services-main { max-width: var(--max-w); margin: 0 auto; padding: 0 40px 80px; }
+
+  .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 48px; }
+  .service-card { background: var(--white); padding: 36px; transition: background 0.2s; }
+  .service-card:hover { background: var(--gray-100); }
+  .service-card-icon { width: 44px; height: 44px; background: var(--black); border-radius: 10px; display: grid; place-items: center; font-size: 20px; margin-bottom: 20px; }
+  .service-card h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .service-card > p { font-size: 14px; color: var(--gray-600); line-height: 1.65; margin-bottom: 20px; }
+  .service-includes { list-style: none; }
+  .service-includes li { font-size: 13px; color: var(--gray-600); padding: 4px 0 4px 16px; position: relative; border-top: 1px solid var(--gray-200); }
+  .service-includes li:first-child { border-top: none; }
+  .service-includes li::before { content: '→'; position: absolute; left: 0; color: var(--gray-400); font-size: 11px; top: 6px; }
+
+  .process-section { background: var(--black); border-radius: var(--radius); padding: 48px; margin-bottom: 48px; }
+  .process-section h2 { font-size: 26px; font-weight: 800; color: var(--white); letter-spacing: -0.025em; margin-bottom: 32px; }
+  .process-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; }
+  .process-row::before { content: ''; position: absolute; top: 19px; left: 10%; right: 10%; height: 1px; background: rgba(255,255,255,0.1); }
+  .process-item { text-align: center; padding: 0 16px; position: relative; }
+  .process-dot { width: 38px; height: 38px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--white); margin: 0 auto 16px; position: relative; z-index: 1; }
+  .process-item h4 { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .process-item p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+  .pricing-section h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 24px; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .pricing-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 28px; position: relative; }
+  .pricing-card.featured { background: var(--black); border-color: var(--black); }
+  .pricing-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: var(--black); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .pricing-tier { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); font-weight: 600; margin-bottom: 8px; }
+  .pricing-card.featured .pricing-tier { color: rgba(255,255,255,0.4); }
+  .pricing-name { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .pricing-card.featured .pricing-name { color: var(--white); }
+  .pricing-desc { font-size: 13px; color: var(--gray-600); line-height: 1.5; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-200); }
+  .pricing-card.featured .pricing-desc { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.1); }
+  .pricing-list { list-style: none; margin-bottom: 24px; }
+  .pricing-list li { font-size: 13px; color: var(--gray-600); padding: 5px 0 5px 18px; position: relative; }
+  .pricing-card.featured .pricing-list li { color: rgba(255,255,255,0.7); }
+  .pricing-list li::before { content: '✓'; position: absolute; left: 0; color: var(--gray-400); font-size: 11px; font-weight: 700; top: 6px; }
+  .pricing-card.featured .pricing-list li::before { color: var(--accent); }
+  .pricing-note { font-size: 12px; color: var(--gray-400); text-align: center; margin-top: 16px; }
+
+  @media (max-width: 900px) {
+    .services-hero { grid-template-columns: 1fr; padding: 40px 20px 32px; }
+    .services-main { padding: 0 20px 60px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-row { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .process-row::before { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .process-section { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">&#x2715;</button>
+  <a href="/">Home</a>
+  <div class="mobile-work-group">
+    <a href="/work" class="mobile-work-parent">Work</a>
+    <div class="mobile-submenu">
+      <a href="/harled">Harled Essentials</a>
+      <a href="/omnisolar">Omnisolar</a>
+      <a href="/searchlight">Searchlight</a>
+      <a href="/zipstrip">ZIP Strip</a>
+      <a href="/coffee">200&#xB0; Coffee</a>
+      <a href="/wanderlust">Wanderlust</a>
+    </div>
+  </div>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/cv">CV</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact" class="mobile-cta">Let&#x2019;s talk</a>
+</div>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-avatar">AC</div>
+    <div><div class="nav-name">Amarildo Canga</div><div class="nav-title">Design Lead · Brand & Product</div></div>
+  </a>
+    <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work">Work</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/cv">CV</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="btn-pill nav-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Let's talk </a>
+<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="services-hero">
+  <div class="fade-up">
+    <div class="section-label">Services</div>
+    <h1>Good design starts with the right problem.</h1>
+    <p>Packaging, catalogues, brand systems, e-commerce. The work is different every time - the approach isn't.</p>
+  </div>
+  <div class="hero-stats fade-up" style="animation-delay:.15s">
+    <div><div class="hero-stat-num">60+</div><div class="hero-stat-label">Projects delivered</div></div>
+    <div><div class="hero-stat-num">B2B/B2C</div><div class="hero-stat-label">Channels covered</div></div>
+    <div><div class="hero-stat-num">UK</div><div class="hero-stat-label">Based, remote-ready</div></div>
+  </div>
+</div>
+
+<div class="services-main">
+
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-card-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <h3>Brand Systems</h3>
+      <p>Identity work that holds up across every format - packaging, digital, print, trade. Built with a system, not just a logo.</p>
+      <ul class="service-includes">
+        <li>Brand architecture + naming</li>
+        <li>Logo + mark development</li>
+        <li>Colour, type, and grid systems</li>
+        <li>Brand guidelines document</li>
+        <li>Application across touchpoints</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-card-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V19a2 2 0 01-2 2H5a2 2 0 01-2-2V8"/><rect x="1" y="3" width="22" height="5" rx="1"/><path d="M10 12h4"/></svg></div>
+      <h3>Packaging Design</h3>
+      <p>Shelf-ready work with proper hierarchy. Spec-led from the start so it scales across the range without falling apart.</p>
+      <ul class="service-includes">
+        <li>Structural layout + dieline setup</li>
+        <li>Typography + colour system</li>
+        <li>InDesign template production</li>
+        <li>Data-merge for variant rollouts</li>
+        <li>Print-ready artwork + supplier liaison</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-card-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></div>
+      <h3>E-commerce Assets</h3>
+      <p>Hero images, infographics, variant panels. Designed for the scroll - answers the question before the customer asks it.</p>
+      <ul class="service-includes">
+        <li>Hero + feature image sets</li>
+        <li>Infographic panel design</li>
+        <li>Variant comparison templates</li>
+        <li>A+ content / enhanced brand content</li>
+        <li>Platform-specific sizing + specs</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-card-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      <h3>Catalogues & Datasheets</h3>
+      <p>B2B sales collateral built for rapid production - one master template, every product covered.</p>
+      <ul class="service-includes">
+        <li>InDesign data-merge templates</li>
+        <li>Spreadsheet-linked spec layouts</li>
+        <li>Trade catalogue design</li>
+        <li>Product datasheet system</li>
+        <li>Digital + print-ready output</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-card-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg></div>
+      <h3>Sales & Marketing Assets</h3>
+      <p>Retailer decks, trade show materials, and launch collateral that tells the product story clearly.</p>
+      <ul class="service-includes">
+        <li>Retailer onboarding packs</li>
+        <li>Trade show display design</li>
+        <li>Product launch decks</li>
+        <li>Sales one-pagers</li>
+        <li>Campaign visual direction</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-card-icon" style="color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+      <h3>Content Systems</h3>
+      <p>Template sets your team can actually use. No designer needed every time someone needs to post something.</p>
+      <ul class="service-includes">
+        <li>Social media template sets</li>
+        <li>Brand voice guidelines</li>
+        <li>Content calendar frameworks</li>
+        <li>Canva / Figma template build</li>
+        <li>Team handoff + training notes</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="process-section reveal">
+    <h2>How I work</h2>
+    <div class="process-row">
+      <div class="process-item">
+        <div class="process-dot">01</div>
+        <h4>Brief</h4>
+        <p>Tell me what you're shipping, when it needs to be done, and what good looks like to you.</p>
+      </div>
+      <div class="process-item">
+        <div class="process-dot">02</div>
+        <h4>Structure</h4>
+        <p>Before anything gets designed, I map the structure - what needs to exist, how it fits together, what the system needs to do.</p>
+      </div>
+      <div class="process-item">
+        <div class="process-dot">03</div>
+        <h4>Build</h4>
+        <p>Design and template in stages. You see it at key points - not just at the end when it's too late to change direction.</p>
+      </div>
+      <div class="process-item">
+        <div class="process-dot">04</div>
+        <h4>Handoff</h4>
+        <p>Files, templates, and enough documentation that your team can keep it going without coming back to me every time.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-section reveal">
+    <h2>Project types</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Focused</div>
+        <div class="pricing-name">Single Asset Sprint</div>
+        <div class="pricing-desc">One clear deliverable. Packaging, a listing set, a template system. Defined scope, defined timeline.</div>
+        <ul class="pricing-list">
+          <li>1–2 week turnaround</li>
+          <li>Single deliverable focus</li>
+          <li>2 revision rounds</li>
+          <li>Print or digital-ready files</li>
+        </ul>
+        <a href="/contact" class="btn-pill outline" style="width:100%;justify-content:center;">Get a quote</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most common</div>
+        <div class="pricing-tier">Full project</div>
+        <div class="pricing-name">System Build</div>
+        <div class="pricing-desc">The full thing - brand, packaging, templates, documentation. Built properly so it lasts.</div>
+        <ul class="pricing-list">
+          <li>3–6 week engagement</li>
+          <li>Full system architecture</li>
+          <li>Template production included</li>
+          <li>Brand guidelines document</li>
+          <li>Handoff + walkthrough session</li>
+        </ul>
+        <a href="/contact" class="btn-pill accent" style="width:100%;justify-content:center;">Start a project </a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Ongoing</div>
+        <div class="pricing-name">Retained Support</div>
+        <div class="pricing-desc">For brands that ship regularly and need someone consistent. Fixed hours, priority turnaround.</div>
+        <ul class="pricing-list">
+          <li>Fixed monthly hours</li>
+          <li>Priority turnaround</li>
+          <li>Ongoing SKU rollouts</li>
+          <li>Asset updates + iterations</li>
+        </ul>
+        <a href="/contact" class="btn-pill outline" style="width:100%;justify-content:center;">Let's talk</a>
+      </div>
+    </div>
+    <p class="pricing-note">Every project gets a proper scope before any work starts. Get in touch and we'll figure out what you actually need.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Amarildo Canga</span>
+    <div class="footer-links">
+      <a href="https://uk.linkedin.com/in/amarildo-canga-2a92a843" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/amarildo.design/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+
+<script>
+(function() {
+  (function() {
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var overlay = document.getElementById('menuOverlay');
+  var closeBtn = document.getElementById('menuClose');
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+})();
+})();
+</script>
+</body>
+</html>
