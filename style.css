@@ -407,31 +407,31 @@ footer {
   .btn-pill.nav-cta { display: none; }
   .burger { display: flex; }
 }
-.ph-200-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619361/200_Coffee_hero.jpg");background-size:cover;background-position:center;}
-.ph-200-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619526/200_Coffee.jpg");background-size:cover;background-position:center;}
-.ph-200-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619663/200_Coffee.jpg");background-size:cover;background-position:center;}
-.ph-halo-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619360/ZIP_Strip_hero.jpg");background-size:cover;background-position:center;}
-.ph-halo-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619530/ZIP_Strip.jpg");background-size:cover;background-position:center;}
-.ph-halo-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619664/ZIP_Strip.jpg");background-size:cover;background-position:center;}
-.ph-wander-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619363/Wanderlust_hero.jpg");background-size:cover;background-position:center;}
-.ph-wander-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619529/Wanderlust.jpg");background-size:cover;background-position:center;}
-.ph-wander-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619664/Wanderlust.jpg");background-size:cover;background-position:center;}
-.ph-led-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619366/Harled_Essentials_hero.jpg");background-size:cover;background-position:center;}
-.ph-led-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619341/Harled_V1.jpg");background-size:cover;background-position:center;}
-.ph-led-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619342/Harled_box.jpg");background-size:cover;background-position:center;}
-.ph-led-4{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619356/Harled.jpg");background-size:cover;background-position:center;}
-.ph-solar-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619364/Omnisolar_hero.jpg");background-size:cover;background-position:center;}
-.ph-solar-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619350/Omnisolar.jpg");background-size:cover;background-position:center;}
-.ph-social-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619358/Searchlight_hero.jpg");background-size:cover;background-position:center;}
-.ph-social-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619347/Searchlight.jpg");background-size:cover;background-position:center;}
+.ph-200-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//200_Coffee_hero.jpg");background-size:cover;background-position:center;}
+.ph-200-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//200_Coffee.jpg");background-size:cover;background-position:center;}
+.ph-200-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//200_Coffee.jpg");background-size:cover;background-position:center;}
+.ph-halo-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//ZIP_Strip_hero.jpg");background-size:cover;background-position:center;}
+.ph-halo-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//ZIP_Strip.jpg");background-size:cover;background-position:center;}
+.ph-halo-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//ZIP_Strip.jpg");background-size:cover;background-position:center;}
+.ph-wander-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Wanderlust_hero.jpg");background-size:cover;background-position:center;}
+.ph-wander-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Wanderlust.jpg");background-size:cover;background-position:center;}
+.ph-wander-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Wanderlust.jpg");background-size:cover;background-position:center;}
+.ph-led-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Harled_Essentials_hero.jpg");background-size:cover;background-position:center;}
+.ph-led-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Harled_V1.jpg");background-size:cover;background-position:center;}
+.ph-led-3{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Harled_box.jpg");background-size:cover;background-position:center;}
+.ph-led-4{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Harled.jpg");background-size:cover;background-position:center;}
+.ph-solar-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Omnisolar_hero.jpg");background-size:cover;background-position:center;}
+.ph-solar-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Omnisolar.jpg");background-size:cover;background-position:center;}
+.ph-social-1{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Searchlight_hero.jpg");background-size:cover;background-position:center;}
+.ph-social-2{background-image:url("https://res.cloudinary.com/dylkbwins/image/upload//Searchlight.jpg");background-size:cover;background-position:center;}
 
 /* Index card images */
-.ph-led   { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619375/Harled_Essentials_card.jpg"); background-size: cover; background-position: center; }
-.ph-solar { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619374/Omnisolar_card.jpg"); background-size: cover; background-position: center; }
-.ph-social{ background-image: url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619369/Searchlight_card.jpg"); background-size: cover; background-position: center; }
-.ph-halo  { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619368/ZIP_Strip_card.jpg"); background-size: cover; background-position: center; }
-.ph-200   { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619371/200_Coffee_card.jpg"); background-size: cover; background-position: center; }
-.ph-wander{ background-image: url("https://res.cloudinary.com/dylkbwins/image/upload/v1772619372/Wanderlust_card.jpg"); background-size: cover; background-position: center; }}
+.ph-led   { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload//Harled_Essentials_card.jpg"); background-size: cover; background-position: center; }
+.ph-solar { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload//Omnisolar_card.jpg"); background-size: cover; background-position: center; }
+.ph-social{ background-image: url("https://res.cloudinary.com/dylkbwins/image/upload//Searchlight_card.jpg"); background-size: cover; background-position: center; }
+.ph-halo  { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload//ZIP_Strip_card.jpg"); background-size: cover; background-position: center; }
+.ph-200   { background-image: url("https://res.cloudinary.com/dylkbwins/image/upload//200_Coffee_card.jpg"); background-size: cover; background-position: center; }
+.ph-wander{ background-image: url("https://res.cloudinary.com/dylkbwins/image/upload//Wanderlust_card.jpg"); background-size: cover; background-position: center; }}
 
 /* Mobile Work submenu */
 .mobile-work-group { display: flex; flex-direction: column; }
